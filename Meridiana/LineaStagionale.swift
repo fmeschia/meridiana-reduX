@@ -63,9 +63,9 @@ class LineaStagionale: Segno {
     
     
     func draw(ctx: CGContext, scale: CGFloat) {
-        for var segmento in segmenti {
+        for segmento in segmenti {
             var primo = true
-            for var punto in segmento {
+            for punto in segmento {
                 if (primo) {
                     CGContextMoveToPoint(ctx, punto.x*scale, punto.y*scale)
                     primo = false
@@ -79,8 +79,8 @@ class LineaStagionale: Segno {
     func getBounds() -> CGRect {
         var primo = true
         var bounds : CGRect = CGRectZero
-        for var segmento in segmenti {
-            for var punto in segmento {
+        for segmento in segmenti {
+            for punto in segmento {
                 if (primo) {
                     bounds = CGRect(origin: punto, size: CGSize(width: 0.0, height: 0.0))
                     primo = false

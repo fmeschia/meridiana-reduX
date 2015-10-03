@@ -70,24 +70,17 @@ class Meridiana: NSView {
         super.drawRect(dirtyRect)
         var layer: CGLayer?
         var layerContext: CGContext?
-        var thisFrame = CGRectZero
         let containerFrame = self.frame
         if (calcolato) {
-            let content_ratio = Double(boundingBox!.size.width) / Double(boundingBox!.size.height)
-            let container_ratio = Double(containerFrame.size.width) / Double(containerFrame.size.height)
-            thisFrame.size.width = CGFloat(Double(boundingBox!.width)) / CGFloat(min(1.0,content_ratio/container_ratio))
-            thisFrame.size.height = boundingBox!.height * CGFloat(max(1.0,content_ratio/container_ratio))
             let ratio = max(boundingBox!.size.width/containerFrame.size.width,boundingBox!.size.height/containerFrame.size.height)
-            //let ratio: CGFloat = min(thisFrame.size.height/containerFrame.height, thisFrame.size.width/containerFrame.width)
-            //let ratio: CGFloat = CGFloat(content_ratio/container_ratio)
-            
-            //self.setBoundsSize(thisFrame.size)
             saveGState { ctx in
                 layer = CGLayerCreateWithContext(ctx, self.bounds.size, nil)!
                 layerContext = CGLayerGetContext(layer)!
                 CGContextTranslateCTM(layerContext, -self.boundingBox!.origin.x/ratio, -self.boundingBox!.origin.y/ratio)
                 CGContextBeginPath(layerContext)
                 CGContextSetLineWidth(layerContext,CGFloat(1.0))
+                CGContextSetAllowsAntialiasing(layerContext, true)
+                CGContextSetShouldAntialias(layerContext, true)
                 for elemento in self.elementi {
                     if elemento is LineaOraria || elemento is LineaStagionale {
                         elemento.draw(layerContext!, scale: CGFloat(1.0/ratio))
@@ -101,10 +94,6 @@ class Meridiana: NSView {
                     }
                 }
                 CGContextStrokePath(layerContext)
-                //CGContextTranslateCTM(ctx, -bbox.origin.x, 0)
-                
-                //var origin : CGPoint = CGPoint(x: -bbox.origin.x, y: 0)
-                
             }
             
             saveGState { ctx in

@@ -104,7 +104,7 @@ class LineaOraria: Segno {
         if (lemniscata) {
             var boundsRect : CGRect!
             var primo : Bool = true
-            for var punto: CGPoint in curva {
+            for punto: CGPoint in curva {
                 if primo {
                     boundsRect = CGRect(origin: punto, size: CGSizeZero)
                     primo = false
