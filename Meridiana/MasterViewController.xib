@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MasterViewController" customModule="Meridiana" customModuleProvider="target">
+            <connections>
+                <outlet property="meridiana" destination="mlF-jz-SgB" id="O1f-1q-3kD"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="VFX-My-uyV"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="mlF-jz-SgB" customClass="Meridiana" customModule="Meridiana">
+                    <rect key="frame" x="20" y="20" width="560" height="360"/>
+                    <animations/>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="mlF-jz-SgB" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="4PH-os-eFc"/>
+                <constraint firstAttribute="trailing" secondItem="mlF-jz-SgB" secondAttribute="trailing" constant="20" id="6HS-1l-Ni1"/>
+                <constraint firstItem="mlF-jz-SgB" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="NxY-S4-VbW"/>
+                <constraint firstAttribute="bottom" secondItem="mlF-jz-SgB" secondAttribute="bottom" constant="20" id="mhQ-qc-gFb"/>
+            </constraints>
+            <animations/>
+            <point key="canvasLocation" x="294" y="-546"/>
+        </customView>
+    </objects>
+</document>

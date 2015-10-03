@@ -1,0 +1,312 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		30376F001BBCF8A800A64154 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376EFF1BBCF8A800A64154 /* AppDelegate.swift */; };
+		30376F021BBCF8A800A64154 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30376F011BBCF8A800A64154 /* Assets.xcassets */; };
+		30376F051BBCF8A800A64154 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30376F031BBCF8A800A64154 /* MainMenu.xib */; };
+		30376F131BBCF8E400A64154 /* LineaOraria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F0C1BBCF8E400A64154 /* LineaOraria.swift */; settings = {ASSET_TAGS = (); }; };
+		30376F141BBCF8E400A64154 /* LineaStagionale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F0D1BBCF8E400A64154 /* LineaStagionale.swift */; settings = {ASSET_TAGS = (); }; };
+		30376F151BBCF8E400A64154 /* Meridiana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F0E1BBCF8E400A64154 /* Meridiana.swift */; settings = {ASSET_TAGS = (); }; };
+		30376F161BBCF8E400A64154 /* MeridianaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F0F1BBCF8E400A64154 /* MeridianaModel.swift */; settings = {ASSET_TAGS = (); }; };
+		30376F171BBCF8E400A64154 /* Segno.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F101BBCF8E400A64154 /* Segno.swift */; settings = {ASSET_TAGS = (); }; };
+		30376F181BBCF8E400A64154 /* TracciaStilo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F111BBCF8E400A64154 /* TracciaStilo.swift */; settings = {ASSET_TAGS = (); }; };
+		30376F191BBCF8E400A64154 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F121BBCF8E400A64154 /* Utils.swift */; settings = {ASSET_TAGS = (); }; };
+		30376F1C1BBCF91000A64154 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F1A1BBCF91000A64154 /* MasterViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		30376F1D1BBCF91000A64154 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30376F1B1BBCF91000A64154 /* MasterViewController.xib */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		30376EFC1BBCF8A800A64154 /* Meridiana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meridiana.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		30376EFF1BBCF8A800A64154 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		30376F011BBCF8A800A64154 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		30376F041BBCF8A800A64154 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		30376F061BBCF8A800A64154 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30376F0C1BBCF8E400A64154 /* LineaOraria.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineaOraria.swift; sourceTree = "<group>"; };
+		30376F0D1BBCF8E400A64154 /* LineaStagionale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineaStagionale.swift; sourceTree = "<group>"; };
+		30376F0E1BBCF8E400A64154 /* Meridiana.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meridiana.swift; sourceTree = "<group>"; };
+		30376F0F1BBCF8E400A64154 /* MeridianaModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeridianaModel.swift; sourceTree = "<group>"; };
+		30376F101BBCF8E400A64154 /* Segno.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segno.swift; sourceTree = "<group>"; };
+		30376F111BBCF8E400A64154 /* TracciaStilo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracciaStilo.swift; sourceTree = "<group>"; };
+		30376F121BBCF8E400A64154 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		30376F1A1BBCF91000A64154 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		30376F1B1BBCF91000A64154 /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		30376EF91BBCF8A800A64154 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		30376EF31BBCF8A800A64154 = {
+			isa = PBXGroup;
+			children = (
+				30376EFE1BBCF8A800A64154 /* Meridiana */,
+				30376EFD1BBCF8A800A64154 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		30376EFD1BBCF8A800A64154 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				30376EFC1BBCF8A800A64154 /* Meridiana.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		30376EFE1BBCF8A800A64154 /* Meridiana */ = {
+			isa = PBXGroup;
+			children = (
+				30376EFF1BBCF8A800A64154 /* AppDelegate.swift */,
+				30376F0C1BBCF8E400A64154 /* LineaOraria.swift */,
+				30376F0D1BBCF8E400A64154 /* LineaStagionale.swift */,
+				30376F0E1BBCF8E400A64154 /* Meridiana.swift */,
+				30376F1A1BBCF91000A64154 /* MasterViewController.swift */,
+				30376F1B1BBCF91000A64154 /* MasterViewController.xib */,
+				30376F0F1BBCF8E400A64154 /* MeridianaModel.swift */,
+				30376F101BBCF8E400A64154 /* Segno.swift */,
+				30376F111BBCF8E400A64154 /* TracciaStilo.swift */,
+				30376F121BBCF8E400A64154 /* Utils.swift */,
+				30376F011BBCF8A800A64154 /* Assets.xcassets */,
+				30376F031BBCF8A800A64154 /* MainMenu.xib */,
+				30376F061BBCF8A800A64154 /* Info.plist */,
+			);
+			path = Meridiana;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		30376EFB1BBCF8A800A64154 /* Meridiana */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 30376F091BBCF8A800A64154 /* Build configuration list for PBXNativeTarget "Meridiana" */;
+			buildPhases = (
+				30376EF81BBCF8A800A64154 /* Sources */,
+				30376EF91BBCF8A800A64154 /* Frameworks */,
+				30376EFA1BBCF8A800A64154 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Meridiana;
+			productName = Meridiana;
+			productReference = 30376EFC1BBCF8A800A64154 /* Meridiana.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		30376EF41BBCF8A800A64154 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Francesco Meschia";
+				TargetAttributes = {
+					30376EFB1BBCF8A800A64154 = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 30376EF71BBCF8A800A64154 /* Build configuration list for PBXProject "Meridiana" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 30376EF31BBCF8A800A64154;
+			productRefGroup = 30376EFD1BBCF8A800A64154 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				30376EFB1BBCF8A800A64154 /* Meridiana */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		30376EFA1BBCF8A800A64154 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30376F021BBCF8A800A64154 /* Assets.xcassets in Resources */,
+				30376F051BBCF8A800A64154 /* MainMenu.xib in Resources */,
+				30376F1D1BBCF91000A64154 /* MasterViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		30376EF81BBCF8A800A64154 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30376F151BBCF8E400A64154 /* Meridiana.swift in Sources */,
+				30376F161BBCF8E400A64154 /* MeridianaModel.swift in Sources */,
+				30376F181BBCF8E400A64154 /* TracciaStilo.swift in Sources */,
+				30376F001BBCF8A800A64154 /* AppDelegate.swift in Sources */,
+				30376F131BBCF8E400A64154 /* LineaOraria.swift in Sources */,
+				30376F1C1BBCF91000A64154 /* MasterViewController.swift in Sources */,
+				30376F171BBCF8E400A64154 /* Segno.swift in Sources */,
+				30376F141BBCF8E400A64154 /* LineaStagionale.swift in Sources */,
+				30376F191BBCF8E400A64154 /* Utils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		30376F031BBCF8A800A64154 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				30376F041BBCF8A800A64154 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		30376F071BBCF8A800A64154 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		30376F081BBCF8A800A64154 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		30376F0A1BBCF8A800A64154 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Meridiana/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.fmeschia.Meridiana;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		30376F0B1BBCF8A800A64154 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Meridiana/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.fmeschia.Meridiana;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		30376EF71BBCF8A800A64154 /* Build configuration list for PBXProject "Meridiana" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30376F071BBCF8A800A64154 /* Debug */,
+				30376F081BBCF8A800A64154 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		30376F091BBCF8A800A64154 /* Build configuration list for PBXNativeTarget "Meridiana" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30376F0A1BBCF8A800A64154 /* Debug */,
+				30376F0B1BBCF8A800A64154 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 30376EF41BBCF8A800A64154 /* Project object */;
+}
