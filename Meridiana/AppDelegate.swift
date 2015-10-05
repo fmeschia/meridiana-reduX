@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
-        masterViewController = MasterViewController(nibName: "MasterViewController", bundle: nil)
+    /*    masterViewController = MasterViewController(nibName: "MasterViewController", bundle: nil)
         
         window.contentView!.addSubview(masterViewController.view)
         masterViewController.view.frame = (window.contentView!).bounds
@@ -34,6 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             views: ["subView" : masterViewController.view])
         
         NSLayoutConstraint.activateConstraints(verticalConstraints + horizontalConstraints)
+*/
         
     }
 

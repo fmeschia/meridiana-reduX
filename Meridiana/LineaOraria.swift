@@ -18,23 +18,35 @@ class LineaOraria: Segno {
     var inizio: CGPoint?
     var fine: CGPoint?
     var curva: Polilinea = Polilinea()
+    var line: CTLineRef
+    var textBounds: CGRect = CGRectZero
+    var ora: Int
     var alfa: Double
     var theModel: MeridianaModel
     var scala: Double
     var ridotto: Bool
+    var tutto : Bool = false
     var lemniscata: Bool = true
+    var premuto: Bool = false
+    let roman = ["XXIV", "I", "II", "III", "IV", "V", "VI", "VII", "VIII",
+    "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI",
+    "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV"]
     
     init(theModel: MeridianaModel, ha: Double, ridotto: Bool) throws {
         self.theModel = theModel
         self.ridotto = ridotto
         self.alfa = ha
         self.scala = 1.0
+        self.ora = Int(round(12 + alfa/Utils.deg2rad(15)))
+        let attrString : CFAttributedStringRef =
+        CFAttributedStringCreate(kCFAllocatorDefault, roman[ora], nil)
+        line = CTLineCreateWithAttributedString(attrString)
         try calcola()
     }
     
     func calcola() throws {
         var calcolato: Bool = false
-        var tutto: Bool = true
+        tutto = true
         var tau: Double
         var p: CGPoint
         for var k = 0; k <= 144 ; k++ {
@@ -71,6 +83,9 @@ class LineaOraria: Segno {
                     tutto = false
                 }
             }
+        if inizio == fine {
+           calcolato = false
+        }
         //}
         if (!tutto) {
             lemniscata = false
@@ -83,26 +98,84 @@ class LineaOraria: Segno {
     }
     
     func draw(ctx: CGContext, scale: CGFloat) {
+        var deltax : Double = Double(fine!.x) - Double(inizio!.x)
+        if deltax == 0.0 {
+            deltax = 0.001
+        }
+//        let m =
+        let x = (fine!.x) + 15 * CGFloat(cos(atan2(Double(fine!.y) - Double(inizio!.y), deltax)))
+        let y = (fine!.y) + 15 * CGFloat(sin(atan2(Double(fine!.y) - Double(inizio!.y), deltax)))
+        let textBounds = CTLineGetImageBounds(line, ctx)
+        CGContextSetTextPosition(ctx, x-textBounds.width/2, y-textBounds.height/2);
+        self.textBounds.origin.x = x - textBounds.width/(2)
+        self.textBounds.origin.y = y - textBounds.height/(2)
+        self.textBounds.size.width = textBounds.width
+        self.textBounds.size.height = textBounds.height
+        CTLineDraw(line, ctx);
+        var textRect : CGRect = CGRect(origin: CGPoint(x:self.textBounds.origin.x, y:self.textBounds.origin.y), size: CGSize(width:self.textBounds.size.width, height:self.textBounds.size.height))
+
         CGContextSetRGBStrokeColor(ctx, 0, 0, 0, 1)
+        //CGContextStrokeRect(ctx, textRect)
+        if (premuto) {
+            CGContextSetLineWidth(ctx,CGFloat(3.0))
+        }
         if (lemniscata) {
             var primo : Bool = true
             for punto: CGPoint in curva {
                 if primo {
-                    CGContextMoveToPoint(ctx, punto.x*scale, punto.y*scale)
+                    CGContextMoveToPoint(ctx, punto.x, punto.y)
                     primo = false
                 } else {
-                    CGContextAddLineToPoint(ctx, punto.x*scale, punto.y*scale)
+                    CGContextAddLineToPoint(ctx, punto.x, punto.y)
                 }
             }
         } else {
-            CGContextMoveToPoint(ctx, inizio!.x*scale, inizio!.y*scale)
-            CGContextAddLineToPoint(ctx, fine!.x*scale, fine!.y*scale)
+            CGContextMoveToPoint(ctx, inizio!.x, inizio!.y)
+            CGContextAddLineToPoint(ctx, fine!.x, fine!.y)
         }
+        
     }
     
+    
+    func contiene(p: CGPoint, scale: CGFloat) -> Bool {
+        var dentro: Bool
+        let bounds: CGRect = getBounds()
+        var pt : CGPoint = p
+        //pt.x /= CGFloat(scale)
+        //pt.y /= CGFloat(scale)
+        if bounds.contains(pt) {
+            if (lemniscata) {
+                let path : CGMutablePath = CGPathCreateMutable()
+                var primo : Bool = true
+                for punto: CGPoint in curva {
+                    if primo {
+                        CGPathMoveToPoint(path, nil, punto.x, punto.y)
+                        primo = false
+                    } else {
+                        CGPathAddLineToPoint(path, nil, punto.x, punto.y)
+                    }
+                }
+                dentro = CGPathContainsPoint(path, nil, pt, true)
+            }else {
+                var m : Double = Double((inizio!.y - fine!.y) / (inizio!.x - fine!.x))
+                if (isinf(m)) {
+                    m = 1e6
+                }
+                let n: Double =  Double(fine!.y) - m * Double(fine!.x)
+                let d : Double = abs((m * Double(pt.x) - Double(pt.y) + n) / sqrt(m*m+1.0));
+                dentro = d < 3.0
+            }
+        } else {
+            dentro = false
+        }
+            return dentro
+        }
+    
+
+    
     func getBounds() -> CGRect {
+        var boundsRect : CGRect!
         if (lemniscata) {
-            var boundsRect : CGRect!
             var primo : Bool = true
             for punto: CGPoint in curva {
                 if primo {
@@ -114,7 +187,9 @@ class LineaOraria: Segno {
             }
             return boundsRect
         } else {
-            return CGRect(x: min(inizio!.x, fine!.x), y: min(inizio!.y, fine!.y), width: abs(fine!.x-inizio!.x), height:abs(fine!.y - inizio!.y))
+            boundsRect = CGRect(x: min(inizio!.x, fine!.x), y: min(inizio!.y, fine!.y), width: abs(fine!.x-inizio!.x), height:abs(fine!.y - inizio!.y))
         }
+        boundsRect = CGRectUnion(boundsRect, textBounds)
+        return boundsRect
     }
 }

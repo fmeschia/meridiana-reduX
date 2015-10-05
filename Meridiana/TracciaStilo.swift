@@ -36,8 +36,8 @@ class TracciaStilo: Segno {
 
     func draw(ctx: CGContext, scale: CGFloat) {
         CGContextSetRGBStrokeColor(ctx, 1, 0, 0, 1)
-        CGContextMoveToPoint(ctx, self.origine.x*scale, self.origine.y*scale)
-        CGContextAddLineToPoint(ctx, self.centro.x*scale, self.centro.y*scale)
+        CGContextMoveToPoint(ctx, self.origine.x, self.origine.y)
+        CGContextAddLineToPoint(ctx, self.centro.x, self.centro.y)
     }
     
     func getBounds() -> CGRect {

@@ -32,11 +32,11 @@ class MeridianaModel: NSObject {
     private var saf : Double = Double.NaN
     private var caf : Double = Double.NaN
 
-    let videoScala: Double = 70.0
+    let videoScala: Double = 50.0
     
     override init() {
         lambda = Utils.deg2rad(8.2)
-        fi = Utils.deg2rad(49)
+        fi = Utils.deg2rad(0)
         iota = Utils.deg2rad(90)
         delta = Utils.deg2rad(10)
         lambdar = Utils.deg2rad(15)
@@ -45,7 +45,7 @@ class MeridianaModel: NSObject {
         calcPrelim()
     }
     
-    private func calcPrelim() {
+    func calcPrelim() {
         sfi = sin(fi)
         cfi = cos(fi)
         d0 = atan2((-sin(iota)*sin(delta)),(cos(iota)*cos(fi)+sin(iota)*sin(fi)*cos(delta)))

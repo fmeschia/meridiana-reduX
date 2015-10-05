@@ -19,6 +19,8 @@
 		30376F191BBCF8E400A64154 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F121BBCF8E400A64154 /* Utils.swift */; settings = {ASSET_TAGS = (); }; };
 		30376F1C1BBCF91000A64154 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F1A1BBCF91000A64154 /* MasterViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		30376F1D1BBCF91000A64154 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30376F1B1BBCF91000A64154 /* MasterViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		30CD821C1BC08A070024C43E /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CD821A1BC08A070024C43E /* Document.swift */; settings = {ASSET_TAGS = (); }; };
+		30CD821D1BC08A070024C43E /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30CD821B1BC08A070024C43E /* Document.xib */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		30376F121BBCF8E400A64154 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		30376F1A1BBCF91000A64154 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		30376F1B1BBCF91000A64154 /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
+		30CD821A1BC08A070024C43E /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		30CD821B1BC08A070024C43E /* Document.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Document.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,8 @@
 				30376F011BBCF8A800A64154 /* Assets.xcassets */,
 				30376F031BBCF8A800A64154 /* MainMenu.xib */,
 				30376F061BBCF8A800A64154 /* Info.plist */,
+				30CD821A1BC08A070024C43E /* Document.swift */,
+				30CD821B1BC08A070024C43E /* Document.xib */,
 			);
 			path = Meridiana;
 			sourceTree = "<group>";
@@ -142,6 +148,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30CD821D1BC08A070024C43E /* Document.xib in Resources */,
 				30376F021BBCF8A800A64154 /* Assets.xcassets in Resources */,
 				30376F051BBCF8A800A64154 /* MainMenu.xib in Resources */,
 				30376F1D1BBCF91000A64154 /* MasterViewController.xib in Resources */,
@@ -159,6 +166,7 @@
 				30376F161BBCF8E400A64154 /* MeridianaModel.swift in Sources */,
 				30376F181BBCF8E400A64154 /* TracciaStilo.swift in Sources */,
 				30376F001BBCF8A800A64154 /* AppDelegate.swift in Sources */,
+				30CD821C1BC08A070024C43E /* Document.swift in Sources */,
 				30376F131BBCF8E400A64154 /* LineaOraria.swift in Sources */,
 				30376F1C1BBCF91000A64154 /* MasterViewController.swift in Sources */,
 				30376F171BBCF8E400A64154 /* Segno.swift in Sources */,

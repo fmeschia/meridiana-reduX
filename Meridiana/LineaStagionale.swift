@@ -61,16 +61,15 @@ class LineaStagionale: Segno {
         }
     }
     
-    
     func draw(ctx: CGContext, scale: CGFloat) {
         for segmento in segmenti {
             var primo = true
             for punto in segmento {
                 if (primo) {
-                    CGContextMoveToPoint(ctx, punto.x*scale, punto.y*scale)
+                    CGContextMoveToPoint(ctx, punto.x, punto.y)
                     primo = false
                 } else {
-                    CGContextAddLineToPoint(ctx, punto.x*scale, punto.y*scale)
+                    CGContextAddLineToPoint(ctx, punto.x, punto.y)
                 }
             }
         }
