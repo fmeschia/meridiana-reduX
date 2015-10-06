@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="Document" customModule="Meridiana" customModuleProvider="target">
+            <connections>
+                <outlet property="declinationField" destination="L6V-vb-sb8" id="VZ3-ke-RB6"/>
+                <outlet property="inclinationField" destination="8Cx-I6-8OI" id="FJg-K9-i2a"/>
+                <outlet property="latitudeField" destination="z2K-6j-9NN" id="eDH-1J-G3H"/>
+                <outlet property="latitudeNorthButton" destination="Iq4-I1-3vW" id="4y0-BS-xbt"/>
+                <outlet property="latitudeSouthButton" destination="tO5-ln-GIy" id="xRE-bR-FlI"/>
+                <outlet property="longitudeEastButton" destination="xk2-eb-rgN" id="8nX-Z4-kOS"/>
+                <outlet property="longitudeField" destination="tos-pJ-crL" id="K7V-CX-16F"/>
+                <outlet property="longitudeWestButton" destination="egp-Nm-Efr" id="WKK-6W-Mmg"/>
+                <outlet property="meridiana" destination="o6C-oO-1bC" id="nNS-zt-aXM"/>
+                <outlet property="paramChanged" destination="BqQ-51-EmL" id="KuV-Va-3KQ"/>
+                <outlet property="referenceLongitudeEastButton" destination="aHJ-KJ-Jpz" id="eVp-3L-BN5"/>
+                <outlet property="referenceLongitudeField" destination="4sW-qt-3B6" id="ON7-FQ-GE9"/>
+                <outlet property="referenceLongitudeWestButton" destination="tGh-xU-bcQ" id="guA-97-Jqb"/>
+                <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="xOd-HO-29H" userLabel="Window">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="133" y="235" width="642" height="413"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <value key="minSize" type="size" width="500" height="350"/>
+            <view key="contentView" id="gIp-Ho-8D9">
+                <rect key="frame" x="0.0" y="0.0" width="642" height="413"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7ZF-WY-mQD">
+                        <rect key="frame" x="12" y="20" width="207" height="381"/>
+                        <subviews>
+                            <box fixedFrame="YES" title="Inclination" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="8Rg-hV-40j">
+                                <rect key="frame" x="-3" y="208" width="213" height="55"/>
+                                <view key="contentView" id="15X-AT-kAe">
+                                    <rect key="frame" x="1" y="1" width="211" height="39"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Cx-I6-8OI">
+                                            <rect key="frame" x="11" y="11" width="50" height="22"/>
+                                            <animations/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="N4A-LL-gi1">
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="9sq-Ap-6FD"/>
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="paramChanged:" target="-2" id="iW5-pa-0B1"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <animations/>
+                                </view>
+                                <animations/>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </box>
+                            <box fixedFrame="YES" title="Declination" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="F7C-2v-wZq">
+                                <rect key="frame" x="-3" y="149" width="213" height="55"/>
+                                <view key="contentView" id="t2B-5q-zBx">
+                                    <rect key="frame" x="1" y="1" width="211" height="39"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L6V-vb-sb8">
+                                            <rect key="frame" x="11" y="11" width="50" height="22"/>
+                                            <animations/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="NmJ-SZ-5O5">
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Wks-Sg-eeW"/>
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="paramChanged:" target="-2" id="iVP-bf-QF9"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <animations/>
+                                </view>
+                                <animations/>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </box>
+                            <box fixedFrame="YES" title="Latitude" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="4Ff-Tz-C2Q">
+                                <rect key="frame" x="-3" y="326" width="213" height="55"/>
+                                <view key="contentView" id="UsQ-s4-rhK">
+                                    <rect key="frame" x="1" y="1" width="211" height="39"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iq4-I1-3vW">
+                                            <rect key="frame" x="119" y="13" width="32" height="18"/>
+                                            <animations/>
+                                            <buttonCell key="cell" type="radio" title="N" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="7be-Lm-DvH">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="latitudeHemiSelection:" target="-2" id="ZLx-cz-x5i"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tO5-ln-GIy">
+                                            <rect key="frame" x="157" y="13" width="31" height="18"/>
+                                            <animations/>
+                                            <buttonCell key="cell" type="radio" title="S" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Lyo-Bj-cSL">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="latitudeHemiSelection:" target="-2" id="Jgo-GD-TEy"/>
+                                            </connections>
+                                        </button>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BqQ-51-EmL">
+                                            <rect key="frame" x="11" y="11" width="90" height="22"/>
+                                            <animations/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="z2K-6j-9NN">
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="WNR-Fc-0jx">
+                                                    <real key="minimum" value="0.0"/>
+                                                    <real key="maximum" value="90"/>
+                                                </numberFormatter>
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <connections>
+                                                    <action selector="paramChanged:" target="-2" id="Idq-3h-2dv"/>
+                                                </connections>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <animations/>
+                                </view>
+                                <animations/>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </box>
+                            <box fixedFrame="YES" title="Longitude" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="4lf-D3-k2e">
+                                <rect key="frame" x="-3" y="267" width="213" height="55"/>
+                                <view key="contentView" id="Qk4-5D-4WT">
+                                    <rect key="frame" x="1" y="1" width="211" height="39"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="egp-Nm-Efr">
+                                            <rect key="frame" x="119" y="13" width="35" height="18"/>
+                                            <animations/>
+                                            <buttonCell key="cell" type="radio" title="W" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6ik-Xh-Pj4">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="longitudeHemiSelection:" target="-2" id="n3h-Fb-sKf"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xk2-eb-rgN">
+                                            <rect key="frame" x="159" y="13" width="30" height="18"/>
+                                            <animations/>
+                                            <buttonCell key="cell" type="radio" title="E" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="tPK-XI-BQh">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="longitudeHemiSelection:" target="-2" id="Pug-pj-09w"/>
+                                            </connections>
+                                        </button>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tos-pJ-crL">
+                                            <rect key="frame" x="11" y="11" width="90" height="22"/>
+                                            <animations/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="0Gm-8z-wdO">
+                                                <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="JSu-2J-RPc"/>
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="paramChanged:" target="-2" id="yb6-iJ-IyU"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <animations/>
+                                </view>
+                                <animations/>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </box>
+                            <box fixedFrame="YES" title="Reference Longitude" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="BE7-L2-tMx">
+                                <rect key="frame" x="-3" y="90" width="213" height="55"/>
+                                <view key="contentView" id="GA5-JG-jYy">
+                                    <rect key="frame" x="1" y="1" width="211" height="39"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4sW-qt-3B6">
+                                            <rect key="frame" x="11" y="11" width="90" height="22"/>
+                                            <animations/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="3xh-dd-g0c">
+                                                <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="92U-oV-uoz"/>
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="paramChanged:" target="-2" id="7KY-En-KYQ"/>
+                                            </connections>
+                                        </textField>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tGh-xU-bcQ">
+                                            <rect key="frame" x="119" y="10" width="35" height="18"/>
+                                            <animations/>
+                                            <buttonCell key="cell" type="radio" title="W" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="w5y-Rf-xFs">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="referenceLongitudeHemiSelection:" target="-2" id="x74-8a-nfE"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aHJ-KJ-Jpz">
+                                            <rect key="frame" x="159" y="10" width="30" height="18"/>
+                                            <animations/>
+                                            <buttonCell key="cell" type="radio" title="E" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="auo-jl-3ff">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="referenceLongitudeHemiSelection:" target="-2" id="icN-8I-2aj"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <animations/>
+                                </view>
+                                <animations/>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </box>
+                        </subviews>
+                        <animations/>
+                    </customView>
+                    <box horizontalHuggingPriority="750" ambiguous="YES" misplaced="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pnU-Rt-KHz">
+                        <rect key="frame" x="236" y="20" width="5" height="381"/>
+                        <animations/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
+                    <scrollView ambiguous="YES" misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZg-jc-2ve">
+                        <rect key="frame" x="255" y="19" width="368" height="375"/>
+                        <clipView key="contentView" ambiguous="YES" id="g9V-Yy-UPX">
+                            <rect key="frame" x="1" y="1" width="181" height="94"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o6C-oO-1bC" customClass="Meridiana" customModule="Meridiana">
+                                    <rect key="frame" x="0.0" y="0.0" width="366" height="373"/>
+                                    <animations/>
+                                </customView>
+                            </subviews>
+                            <animations/>
+                        </clipView>
+                        <animations/>
+                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="Mch-aq-MWw">
+                            <rect key="frame" x="1" y="79" width="181" height="16"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <animations/>
+                        </scroller>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="cfk-mh-UUc">
+                            <rect key="frame" x="166" y="1" width="16" height="94"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <animations/>
+                        </scroller>
+                    </scrollView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="TZg-jc-2ve" secondAttribute="trailing" constant="20" id="E6f-zV-wkW"/>
+                    <constraint firstAttribute="bottom" secondItem="TZg-jc-2ve" secondAttribute="bottom" constant="19" id="IPg-1h-4qh"/>
+                    <constraint firstAttribute="bottom" secondItem="pnU-Rt-KHz" secondAttribute="bottom" constant="20" id="ScA-na-cjV"/>
+                    <constraint firstItem="pnU-Rt-KHz" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="12" id="Xud-Dy-WhM"/>
+                    <constraint firstItem="TZg-jc-2ve" firstAttribute="leading" secondItem="pnU-Rt-KHz" secondAttribute="trailing" constant="20" id="qvI-mT-ZHq"/>
+                    <constraint firstItem="TZg-jc-2ve" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="20" id="rug-AT-WHC"/>
+                </constraints>
+                <animations/>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
+            </connections>
+            <point key="canvasLocation" x="427" y="349.5"/>
+        </window>
+    </objects>
+</document>
