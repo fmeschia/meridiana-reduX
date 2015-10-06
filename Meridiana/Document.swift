@@ -9,7 +9,7 @@
 import Cocoa
 import CoreLocation
 
-class Document: NSDocument, CLLocationManagerDelegate, NSTextFieldDelegate {
+class Document: NSDocument, CLLocationManagerDelegate {
     var theModel : MeridianaModel?
     
     var locationFix : Bool = false
@@ -23,15 +23,59 @@ class Document: NSDocument, CLLocationManagerDelegate, NSTextFieldDelegate {
         // Add your subclass-specific initialization here.
     }
     
+    func changeMeridianaModel() {
+        undoManager?.registerUndoWithTarget(self, selector: Selector("setFromDict:"), object: theModel?.toDictionary())
+        setMeridianaModel()
+    }
+    
+    func setFromDict(dictionary: NSDictionary) {
+        undoManager?.registerUndoWithTarget(self, selector: Selector("setFromDict:"), object: theModel?.toDictionary())
+        theModel? = MeridianaModel.fromDictionary(dictionary)
+        meridiana.theModel = theModel
+        meridiana.calcola()
+        updateFields()
+        meridiana.needsDisplay = true
+    }
+    
     func setMeridianaModel() {
-        theModel!.lambda = Utils.deg2rad(longitudeField.doubleValue)*(longitudeEastButton.state == NSOnState ? -1.0 : 1.0)
-        theModel!.lambdar = Utils.deg2rad(referenceLongitudeField.doubleValue)*(referenceLongitudeEastButton.state == NSOnState ? -1.0 : 1.0)
-        theModel!.fi = Utils.deg2rad(latitudeField.doubleValue)*(latitudeSouthButton.state == NSOnState ? -1.0 : 1.0)
+        
+        theModel!.lambda = Utils.deg2rad(longitudeField.doubleValue)*(longitudeEastButton.state == NSOnState ? 1.0 : -1.0)
+        theModel!.lambdar = Utils.deg2rad(referenceLongitudeField.doubleValue)*(referenceLongitudeEastButton.state == NSOnState ? 1.0 : -1.0)
+        theModel!.fi = Utils.deg2rad(latitudeField.doubleValue)*(latitudeNorthButton.state == NSOnState ? 1.0 : -1.0)
         theModel!.iota = Utils.deg2rad(inclinationField.doubleValue)
-        theModel!.delta = Utils.deg2rad(declinationField.doubleValue)
+        theModel!.delta = Utils.deg2rad(declinationField.doubleValue)*(declinationEastButton.state != NSOnState ? 1.0 : -1.0)
         theModel!.calcPrelim()
+        meridiana.theModel = theModel
         meridiana.calcola()
         meridiana.needsDisplay = true
+    }
+    
+    func updateFields() {
+        latitudeField.doubleValue = Utils.rad2deg(abs(theModel!.fi))
+        if theModel!.fi >= 0.0 {
+            latitudeNorthButton.state = NSOnState
+        } else {
+            latitudeSouthButton.state = NSOnState
+        }
+        longitudeField.doubleValue = Utils.rad2deg(abs(theModel!.lambda))
+        if theModel!.lambda >= 0.0 {
+            longitudeEastButton.state = NSOnState
+        } else {
+            longitudeWestButton.state = NSOnState
+        }
+        referenceLongitudeField.doubleValue = Utils.rad2deg(abs(theModel!.lambdar))
+        if theModel!.lambdar >= 0.0 {
+            referenceLongitudeEastButton.state = NSOnState
+        } else {
+            referenceLongitudeWestButton.state = NSOnState
+        }
+        inclinationField.doubleValue = Utils.rad2deg(theModel!.iota)
+        declinationField.doubleValue = Utils.rad2deg(abs(theModel!.delta))
+        if theModel!.delta < 0.0 {
+            declinationWestButton.state = NSOnState
+        } else {
+            declinationEastButton.state = NSOnState
+        }
     }
     
     func locationManager(_manager: CLLocationManager,
@@ -59,6 +103,7 @@ class Document: NSDocument, CLLocationManagerDelegate, NSTextFieldDelegate {
             } else {
                 referenceLongitudeWestButton.state = NSOnState
             }
+            declinationWestButton.state = NSOnState
             theLocationManager!.stopUpdatingLocation()
             locationFix = true
             setMeridianaModel()
@@ -106,13 +151,38 @@ class Document: NSDocument, CLLocationManagerDelegate, NSTextFieldDelegate {
         throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
     }
     
-    override func controlTextDidChange(obj: NSNotification) {
-        setMeridianaModel()
+    @IBAction func latitudeAction(sender: AnyObject) {
+        let value = latitudeField.doubleValue * (latitudeNorthButton.state == NSOnState ? 1.0 : -1.0)
+        if abs(Utils.deg2rad(value) - meridiana!.theModel!.fi) > 0.001 {
+            changeMeridianaModel()
+        }
     }
-
-    @IBAction func paramChanged(sender: AnyObject) {
-        setMeridianaModel()
+    @IBAction func longitudeAction(sender: AnyObject) {
+        let value = longitudeField.doubleValue * (longitudeEastButton.state == NSOnState ? 1.0 : -1.0)
+        if abs(Utils.deg2rad(value) - meridiana!.theModel!.lambda) > 0.001 {
+            changeMeridianaModel()
+        }
     }
+    @IBAction func referenceLongitudeAction(sender: AnyObject) {
+        let value = referenceLongitudeField.doubleValue * (referenceLongitudeEastButton.state == NSOnState ? 1.0 : -1.0)
+        if abs(Utils.deg2rad(value) - meridiana!.theModel!.lambdar) > 0.001 {
+            changeMeridianaModel()
+        }
+    }
+    @IBAction func declinationAction(sender: AnyObject) {
+        let value = declinationField.doubleValue * (declinationEastButton.state == NSOnState ? 1.0 : -1.0)
+        if abs(Utils.deg2rad(value) - meridiana!.theModel!.delta) > 0.001 {
+            changeMeridianaModel()
+        }
+    }
+    @IBAction func inclinationAction(sender: AnyObject) {
+        let value = inclinationField.doubleValue
+        if abs(Utils.deg2rad(value) - meridiana!.theModel!.iota) > 0.001 {
+            changeMeridianaModel()
+        }
+    }
+    @IBOutlet weak var declinationEastButton: NSButton!
+    @IBOutlet weak var declinationWestButton: NSButton!
     @IBOutlet weak var longitudeEastButton: NSButton!
     @IBOutlet weak var longitudeWestButton: NSButton!
     @IBOutlet weak var latitudeSouthButton: NSButton!
@@ -124,14 +194,5 @@ class Document: NSDocument, CLLocationManagerDelegate, NSTextFieldDelegate {
     @IBOutlet weak var inclinationField: NSTextField!
     @IBOutlet weak var declinationField: NSTextField!
     @IBOutlet weak var referenceLongitudeField: NSTextField!
-    @IBAction func referenceLongitudeHemiSelection(sender: NSButton) {
-        setMeridianaModel()
-    }
-    @IBAction func latitudeHemiSelection(sender: NSButton) {
-        setMeridianaModel()
-    }
-    @IBAction func longitudeHemiSelection(sender: NSButton) {
-        setMeridianaModel()
-    }
 }
 

@@ -12,6 +12,12 @@ enum MeridianaCalculationError: ErrorType {
     case TooLow
 }
 
+enum LineaOrariaState: Int {
+    case LineaOrariaCompleta = 1
+    case Lemniscata = 2
+    case LineaParziale = 3
+}
+
 class MeridianaModel: NSObject {
     var lambda : Double = Double.NaN
     var fi     : Double = Double.NaN
@@ -19,6 +25,7 @@ class MeridianaModel: NSObject {
     var delta  : Double = Double.NaN
     var lambdar: Double = Double.NaN
     var altezza: Double = Double.NaN
+    var statoLineeOrarie : [Int] = [Int]()
     private let e   : Double = 0.01670924
     private let eta : Double = 0.409092637
     private var sfi : Double = Double.NaN
@@ -44,6 +51,30 @@ class MeridianaModel: NSObject {
         super.init()
         calcPrelim()
     }
+    
+    func toDictionary() -> NSDictionary {
+        return NSDictionary(dictionary: [
+            "lambda": lambda,
+            "fi": fi,
+            "iota": iota,
+            "delta": delta,
+            "lambdar": lambdar,
+            "altezza": altezza
+        ])
+    }
+    
+    class func fromDictionary(dict: NSDictionary) -> MeridianaModel {
+        let object : MeridianaModel = MeridianaModel()
+        object.lambda = (dict["lambda"]! as! Double)
+        object.fi = (dict["fi"]! as! Double)
+        object.iota = (dict["iota"]! as! Double)
+        object.delta = (dict["delta"]! as! Double)
+        object.lambdar = (dict["lambdar"]! as! Double)
+        object.altezza = (dict["altezza"]! as! Double)
+        object.calcPrelim()
+        return object
+    }
+
     
     func calcPrelim() {
         sfi = sin(fi)

@@ -19,7 +19,6 @@ class LineaOraria: Segno {
     var fine: CGPoint?
     var curva: Polilinea = Polilinea()
     var line: CTLineRef
-    var textBounds: CGRect = CGRectZero
     var ora: Int
     var alfa: Double
     var theModel: MeridianaModel
@@ -106,17 +105,10 @@ class LineaOraria: Segno {
         let x = (fine!.x) + 15 * CGFloat(cos(atan2(Double(fine!.y) - Double(inizio!.y), deltax)))
         let y = (fine!.y) + 15 * CGFloat(sin(atan2(Double(fine!.y) - Double(inizio!.y), deltax)))
         let textBounds = CTLineGetImageBounds(line, ctx)
-        CGContextSetTextPosition(ctx, x-textBounds.width/2, y-textBounds.height/2);
-        self.textBounds.origin.x = x - textBounds.width/(2)
-        self.textBounds.origin.y = y - textBounds.height/(2)
-        self.textBounds.size.width = textBounds.width
-        self.textBounds.size.height = textBounds.height
-        CTLineDraw(line, ctx);
-        var textRect : CGRect = CGRect(origin: CGPoint(x:self.textBounds.origin.x, y:self.textBounds.origin.y), size: CGSize(width:self.textBounds.size.width, height:self.textBounds.size.height))
-
         CGContextSetRGBStrokeColor(ctx, 0, 0, 0, 1)
-        //CGContextStrokeRect(ctx, textRect)
-        if (premuto) {
+        CGContextSetTextPosition(ctx, x-textBounds.width/2, y-textBounds.height/2);
+        CTLineDraw(line, ctx);
+         if (premuto) {
             CGContextSetLineWidth(ctx,CGFloat(3.0))
         }
         if (lemniscata) {
@@ -189,7 +181,6 @@ class LineaOraria: Segno {
         } else {
             boundsRect = CGRect(x: min(inizio!.x, fine!.x), y: min(inizio!.y, fine!.y), width: abs(fine!.x-inizio!.x), height:abs(fine!.y - inizio!.y))
         }
-        boundsRect = CGRectUnion(boundsRect, textBounds)
         return boundsRect
     }
 }

@@ -7,7 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Document" customModule="Meridiana" customModuleProvider="target">
             <connections>
+                <outlet property="declinationEastButton" destination="8Wg-vp-0kp" id="Poi-8f-M3R"/>
                 <outlet property="declinationField" destination="L6V-vb-sb8" id="VZ3-ke-RB6"/>
+                <outlet property="declinationWestButton" destination="I13-xB-Mm1" id="lDK-k1-cuK"/>
                 <outlet property="inclinationField" destination="8Cx-I6-8OI" id="FJg-K9-i2a"/>
                 <outlet property="latitudeField" destination="z2K-6j-9NN" id="eDH-1J-G3H"/>
                 <outlet property="latitudeNorthButton" destination="Iq4-I1-3vW" id="4y0-BS-xbt"/>
@@ -16,7 +18,6 @@
                 <outlet property="longitudeField" destination="tos-pJ-crL" id="K7V-CX-16F"/>
                 <outlet property="longitudeWestButton" destination="egp-Nm-Efr" id="WKK-6W-Mmg"/>
                 <outlet property="meridiana" destination="o6C-oO-1bC" id="nNS-zt-aXM"/>
-                <outlet property="paramChanged" destination="BqQ-51-EmL" id="KuV-Va-3KQ"/>
                 <outlet property="referenceLongitudeEastButton" destination="aHJ-KJ-Jpz" id="eVp-3L-BN5"/>
                 <outlet property="referenceLongitudeField" destination="4sW-qt-3B6" id="ON7-FQ-GE9"/>
                 <outlet property="referenceLongitudeWestButton" destination="tGh-xU-bcQ" id="guA-97-Jqb"/>
@@ -45,16 +46,19 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Cx-I6-8OI">
-                                            <rect key="frame" x="11" y="11" width="50" height="22"/>
+                                            <rect key="frame" x="11" y="11" width="90" height="22"/>
                                             <animations/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="N4A-LL-gi1">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="9sq-Ap-6FD"/>
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="9sq-Ap-6FD">
+                                                    <real key="minimum" value="0.0"/>
+                                                    <real key="maximum" value="135"/>
+                                                </numberFormatter>
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <action selector="paramChanged:" target="-2" id="iW5-pa-0B1"/>
+                                                <action selector="inclinationAction:" target="-2" id="KK4-fu-fZU"/>
                                             </connections>
                                         </textField>
                                     </subviews>
@@ -71,18 +75,43 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L6V-vb-sb8">
-                                            <rect key="frame" x="11" y="11" width="50" height="22"/>
+                                            <rect key="frame" x="11" y="11" width="90" height="22"/>
                                             <animations/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="NmJ-SZ-5O5">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Wks-Sg-eeW"/>
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Wks-Sg-eeW">
+                                                    <real key="minimum" value="0.0"/>
+                                                    <real key="maximum" value="180"/>
+                                                </numberFormatter>
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <action selector="paramChanged:" target="-2" id="iVP-bf-QF9"/>
+                                                <action selector="declinationAction:" target="-2" id="9yR-zH-FJ5"/>
                                             </connections>
                                         </textField>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I13-xB-Mm1">
+                                            <rect key="frame" x="119" y="13" width="35" height="18"/>
+                                            <animations/>
+                                            <buttonCell key="cell" type="radio" title="W" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Bmz-Lx-FIA">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="declinationAction:" target="-2" id="pxS-uh-m5E"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Wg-vp-0kp">
+                                            <rect key="frame" x="159" y="13" width="30" height="18"/>
+                                            <animations/>
+                                            <buttonCell key="cell" type="radio" title="E" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="uuN-Hh-IPV">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="declinationAction:" target="-2" id="kcY-3X-Nhu"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <animations/>
                                 </view>
@@ -104,7 +133,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="latitudeHemiSelection:" target="-2" id="ZLx-cz-x5i"/>
+                                                <action selector="latitudeAction:" target="-2" id="2D5-O4-Bqz"/>
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tO5-ln-GIy">
@@ -115,7 +144,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="latitudeHemiSelection:" target="-2" id="Jgo-GD-TEy"/>
+                                                <action selector="latitudeAction:" target="-2" id="lEu-io-DhC"/>
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BqQ-51-EmL">
@@ -129,10 +158,10 @@
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                <connections>
-                                                    <action selector="paramChanged:" target="-2" id="Idq-3h-2dv"/>
-                                                </connections>
                                             </textFieldCell>
+                                            <connections>
+                                                <action selector="latitudeAction:" target="-2" id="VK5-s5-r31"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                     <animations/>
@@ -155,7 +184,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="longitudeHemiSelection:" target="-2" id="n3h-Fb-sKf"/>
+                                                <action selector="longitudeAction:" target="-2" id="LEP-im-Sxv"/>
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xk2-eb-rgN">
@@ -166,20 +195,23 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="longitudeHemiSelection:" target="-2" id="Pug-pj-09w"/>
+                                                <action selector="longitudeAction:" target="-2" id="Fwy-BC-dNX"/>
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tos-pJ-crL">
                                             <rect key="frame" x="11" y="11" width="90" height="22"/>
                                             <animations/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="0Gm-8z-wdO">
-                                                <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="JSu-2J-RPc"/>
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="JSu-2J-RPc">
+                                                    <real key="minimum" value="0.0"/>
+                                                    <real key="maximum" value="180"/>
+                                                </numberFormatter>
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <action selector="paramChanged:" target="-2" id="yb6-iJ-IyU"/>
+                                                <action selector="longitudeAction:" target="-2" id="5nw-vB-2mX"/>
                                             </connections>
                                         </textField>
                                     </subviews>
@@ -199,13 +231,16 @@
                                             <rect key="frame" x="11" y="11" width="90" height="22"/>
                                             <animations/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="3xh-dd-g0c">
-                                                <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="92U-oV-uoz"/>
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="92U-oV-uoz">
+                                                    <real key="minimum" value="0.0"/>
+                                                    <real key="maximum" value="180"/>
+                                                </numberFormatter>
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <action selector="paramChanged:" target="-2" id="7KY-En-KYQ"/>
+                                                <action selector="referenceLongitudeAction:" target="-2" id="cyV-iD-Cgo"/>
                                             </connections>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tGh-xU-bcQ">
@@ -216,7 +251,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="referenceLongitudeHemiSelection:" target="-2" id="x74-8a-nfE"/>
+                                                <action selector="referenceLongitudeAction:" target="-2" id="XqN-lC-UHM"/>
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aHJ-KJ-Jpz">
@@ -227,7 +262,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="referenceLongitudeHemiSelection:" target="-2" id="icN-8I-2aj"/>
+                                                <action selector="referenceLongitudeAction:" target="-2" id="cZG-NT-zee"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -250,11 +285,11 @@
                     <scrollView ambiguous="YES" misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZg-jc-2ve">
                         <rect key="frame" x="255" y="19" width="368" height="375"/>
                         <clipView key="contentView" ambiguous="YES" id="g9V-Yy-UPX">
-                            <rect key="frame" x="1" y="1" width="181" height="94"/>
+                            <rect key="frame" x="1" y="1" width="366" height="373"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o6C-oO-1bC" customClass="Meridiana" customModule="Meridiana">
-                                    <rect key="frame" x="0.0" y="0.0" width="366" height="373"/>
+                                    <rect key="frame" x="0.0" y="279" width="366" height="373"/>
                                     <animations/>
                                 </customView>
                             </subviews>
@@ -262,12 +297,12 @@
                         </clipView>
                         <animations/>
                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="Mch-aq-MWw">
-                            <rect key="frame" x="1" y="79" width="181" height="16"/>
+                            <rect key="frame" x="1" y="358" width="366" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <animations/>
                         </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="cfk-mh-UUc">
-                            <rect key="frame" x="166" y="1" width="16" height="94"/>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="cfk-mh-UUc">
+                            <rect key="frame" x="352" y="1" width="15" height="373"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <animations/>
                         </scroller>

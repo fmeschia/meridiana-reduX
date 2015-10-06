@@ -26,6 +26,17 @@ class Meridiana: NSView {
                 var l: LineaOraria
                 try l = LineaOraria(theModel:theModel!, ha:Utils.deg2rad((Double(h)-12)*15.0), ridotto:true)
                 elementi.append(l)
+                var statoLinea : Int
+                if l.tutto {
+                    if (l.lemniscata) {
+                        statoLinea = LineaOrariaState.Lemniscata
+                    } else {
+                        statoLinea = LineaOrariaState.LineaOrariaCompleta
+                    }
+                } else {
+                    statoLinea = LineaOrariaState.LineaParziale
+                }
+                theModel?.statoLineeOrarie.append(statoLinea)
             } catch LineaOrariaError.NoPoints {
  
             } catch {
@@ -46,7 +57,10 @@ class Meridiana: NSView {
             let elementBounds : CGRect = elemento.getBounds()
             boundingBox = CGRectUnion((boundingBox == nil ? elementBounds : boundingBox!), elementBounds)
         }
-        self.setFrameSize(CGSize(width: 600, height: 600))
+        boundingBox = CGRectInset(boundingBox!, -30, -30)
+        boundingBox = CGRect(origin: boundingBox!.origin, size:CGSize(width:boundingBox!.width, height:550))
+        //boundingBox = CGRect(origin: CGPoint(x:-330,y:-330),size:CGSize(width:660, height:660))
+        self.setFrameSize(CGSize(width: 600, height: boundingBox!.height))
     }
     
     private var currentContext : CGContext? {
@@ -74,7 +88,7 @@ class Meridiana: NSView {
         var location: CGPoint = theEvent.locationInWindow
         location = self.convertPoint(location, fromView: nil)
         location.x -= 300/ratio
-        location.y -= 300/ratio
+        location.y -= -self.boundingBox!.origin.y/ratio
         for elemento in elementi {
             if elemento is LineaOraria {
                 if (elemento as! LineaOraria).contiene(location, scale: CGFloat(1.0/ratio)) {
@@ -89,7 +103,7 @@ class Meridiana: NSView {
         var location: CGPoint = theEvent.locationInWindow
         location = self.convertPoint(location, fromView: nil)
         location.x -= 300/ratio
-        location.y -= 300/ratio
+        location.y -= -self.boundingBox!.origin.y/ratio
         for elemento in elementi {
             if elemento is LineaOraria {
                 (elemento as! LineaOraria).premuto = false
@@ -116,7 +130,7 @@ class Meridiana: NSView {
                 layer = CGLayerCreateWithContext(ctx, self.bounds.size, nil)!
                 layerContext = CGLayerGetContext(layer)!
                 //CGContextTranslateCTM(layerContext, -self.boundingBox!.origin.x/self.ratio, -self.boundingBox!.origin.y/self.ratio)
-                CGContextTranslateCTM(layerContext, 300, 300)
+                CGContextTranslateCTM(layerContext, 300, -self.boundingBox!.origin.y)
                 //self.setFrameSize(CGSize(width: 600, height:600))
                 //CGContextScaleCTM(layerContext, CGFloat(1.0/self.ratio), CGFloat(1.0/self.ratio))
                 //self.ratio = 1.0
@@ -150,5 +164,21 @@ class Meridiana: NSView {
             }
         }
     }
+    
+    /*
+    func toDictionary() -> NSDictionary {
+        let dict : NSDictionary = [
+            "model": theModel!.toDictionary()
+        ]
+        return dict
+    }
+    
+    class func fromDictionary(dict: NSDictionary) -> Meridiana {
+        let object : Meridiana = Meridiana()
+        object.theModel = MeridianaModel.fromDictionary(dict)
+        object.calcola()
+        return object
+    }
+*/
     
 }
