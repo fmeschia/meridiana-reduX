@@ -83,7 +83,8 @@ class LineaOraria: Segno {
                 }
             }
         if inizio == fine {
-           calcolato = false
+            calcolato = false
+            tutto = false
         }
         //}
         if (!tutto) {
@@ -111,7 +112,7 @@ class LineaOraria: Segno {
          if (premuto) {
             CGContextSetLineWidth(ctx,CGFloat(3.0))
         }
-        if (lemniscata) {
+        if (tutto && lemniscata) {
             var primo : Bool = true
             for punto: CGPoint in curva {
                 if primo {
@@ -167,7 +168,7 @@ class LineaOraria: Segno {
     
     func getBounds() -> CGRect {
         var boundsRect : CGRect!
-        if (lemniscata) {
+        if (tutto && lemniscata) {
             var primo : Bool = true
             for punto: CGPoint in curva {
                 if primo {

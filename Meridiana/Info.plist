@@ -49,6 +49,8 @@
 	<string>Copyright © 2015 Francesco Meschia. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

@@ -17,7 +17,7 @@
                 <outlet property="longitudeEastButton" destination="xk2-eb-rgN" id="8nX-Z4-kOS"/>
                 <outlet property="longitudeField" destination="tos-pJ-crL" id="K7V-CX-16F"/>
                 <outlet property="longitudeWestButton" destination="egp-Nm-Efr" id="WKK-6W-Mmg"/>
-                <outlet property="meridiana" destination="o6C-oO-1bC" id="nNS-zt-aXM"/>
+                <outlet property="meridiana" destination="HbD-QH-KQH" id="KZu-om-BWa"/>
                 <outlet property="referenceLongitudeEastButton" destination="aHJ-KJ-Jpz" id="eVp-3L-BN5"/>
                 <outlet property="referenceLongitudeField" destination="4sW-qt-3B6" id="ON7-FQ-GE9"/>
                 <outlet property="referenceLongitudeWestButton" destination="tGh-xU-bcQ" id="guA-97-Jqb"/>
@@ -26,7 +26,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="xOd-HO-29H" userLabel="Window">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="xOd-HO-29H" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="235" width="642" height="413"/>
@@ -36,8 +36,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="642" height="413"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <box horizontalHuggingPriority="750" ambiguous="YES" misplaced="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pnU-Rt-KHz">
+                        <rect key="frame" x="236" y="20" width="5" height="381"/>
+                        <animations/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7ZF-WY-mQD">
-                        <rect key="frame" x="12" y="20" width="207" height="381"/>
+                        <rect key="frame" x="20" y="20" width="207" height="381"/>
                         <subviews>
                             <box fixedFrame="YES" title="Inclination" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="8Rg-hV-40j">
                                 <rect key="frame" x="-3" y="208" width="213" height="55"/>
@@ -275,46 +282,39 @@
                         </subviews>
                         <animations/>
                     </customView>
-                    <box horizontalHuggingPriority="750" ambiguous="YES" misplaced="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pnU-Rt-KHz">
-                        <rect key="frame" x="236" y="20" width="5" height="381"/>
-                        <animations/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
-                    </box>
-                    <scrollView ambiguous="YES" misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZg-jc-2ve">
+                    <scrollView ambiguous="YES" misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUT-fg-2LK">
                         <rect key="frame" x="255" y="19" width="368" height="375"/>
-                        <clipView key="contentView" ambiguous="YES" id="g9V-Yy-UPX">
-                            <rect key="frame" x="1" y="1" width="366" height="373"/>
+                        <clipView key="contentView" ambiguous="YES" id="5yP-b6-mjE">
+                            <rect key="frame" x="1" y="1" width="181" height="94"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o6C-oO-1bC" customClass="Meridiana" customModule="Meridiana">
-                                    <rect key="frame" x="0.0" y="279" width="366" height="373"/>
+                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HbD-QH-KQH" customClass="Meridiana" customModule="Meridiana">
+                                    <rect key="frame" x="0.0" y="0.0" width="366" height="373"/>
                                     <animations/>
                                 </customView>
                             </subviews>
                             <animations/>
                         </clipView>
                         <animations/>
-                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="Mch-aq-MWw">
-                            <rect key="frame" x="1" y="358" width="366" height="16"/>
+                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="AAK-ue-oc2">
+                            <rect key="frame" x="1" y="79" width="181" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <animations/>
                         </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="cfk-mh-UUc">
-                            <rect key="frame" x="352" y="1" width="15" height="373"/>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="2hJ-g9-kFn">
+                            <rect key="frame" x="166" y="1" width="16" height="94"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <animations/>
                         </scroller>
                     </scrollView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="TZg-jc-2ve" secondAttribute="trailing" constant="20" id="E6f-zV-wkW"/>
-                    <constraint firstAttribute="bottom" secondItem="TZg-jc-2ve" secondAttribute="bottom" constant="19" id="IPg-1h-4qh"/>
+                    <constraint firstAttribute="trailing" secondItem="JUT-fg-2LK" secondAttribute="trailing" constant="20" id="2k1-bv-K98"/>
+                    <constraint firstAttribute="bottom" secondItem="JUT-fg-2LK" secondAttribute="bottom" constant="20" id="3JJ-je-9O3"/>
                     <constraint firstAttribute="bottom" secondItem="pnU-Rt-KHz" secondAttribute="bottom" constant="20" id="ScA-na-cjV"/>
                     <constraint firstItem="pnU-Rt-KHz" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="12" id="Xud-Dy-WhM"/>
-                    <constraint firstItem="TZg-jc-2ve" firstAttribute="leading" secondItem="pnU-Rt-KHz" secondAttribute="trailing" constant="20" id="qvI-mT-ZHq"/>
-                    <constraint firstItem="TZg-jc-2ve" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="20" id="rug-AT-WHC"/>
+                    <constraint firstItem="JUT-fg-2LK" firstAttribute="leading" secondItem="pnU-Rt-KHz" secondAttribute="trailing" constant="20" id="j0q-sY-uyO"/>
+                    <constraint firstItem="JUT-fg-2LK" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="20" id="kc4-sN-p23"/>
                 </constraints>
                 <animations/>
             </view>

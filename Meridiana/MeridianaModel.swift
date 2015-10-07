@@ -25,7 +25,7 @@ class MeridianaModel: NSObject {
     var delta  : Double = Double.NaN
     var lambdar: Double = Double.NaN
     var altezza: Double = Double.NaN
-    var statoLineeOrarie : [Int] = [Int]()
+    var lineaOrariaLemniscata : [Bool] = [Bool](count:25, repeatedValue:true)
     private let e   : Double = 0.01670924
     private let eta : Double = 0.409092637
     private var sfi : Double = Double.NaN
@@ -44,8 +44,8 @@ class MeridianaModel: NSObject {
     override init() {
         lambda = Utils.deg2rad(8.2)
         fi = Utils.deg2rad(0)
-        iota = Utils.deg2rad(90)
-        delta = Utils.deg2rad(10)
+        iota = Utils.deg2rad(0)
+        delta = Utils.deg2rad(0)
         lambdar = Utils.deg2rad(15)
         altezza = 500
         super.init()
@@ -59,20 +59,22 @@ class MeridianaModel: NSObject {
             "iota": iota,
             "delta": delta,
             "lambdar": lambdar,
-            "altezza": altezza
+            "altezza": altezza,
+            "lemniscate": lineaOrariaLemniscata,
         ])
     }
     
-    class func fromDictionary(dict: NSDictionary) -> MeridianaModel {
-        let object : MeridianaModel = MeridianaModel()
-        object.lambda = (dict["lambda"]! as! Double)
-        object.fi = (dict["fi"]! as! Double)
-        object.iota = (dict["iota"]! as! Double)
-        object.delta = (dict["delta"]! as! Double)
-        object.lambdar = (dict["lambdar"]! as! Double)
-        object.altezza = (dict["altezza"]! as! Double)
-        object.calcPrelim()
-        return object
+    func fromDictionary(dict: NSDictionary)  {
+        //object : MeridianaModel = MeridianaModel()
+        lambda = (dict["lambda"]! as! Double)
+        fi = (dict["fi"]! as! Double)
+        iota = (dict["iota"]! as! Double)
+        delta = (dict["delta"]! as! Double)
+        lambdar = (dict["lambdar"]! as! Double)
+        altezza = (dict["altezza"]! as! Double)
+        lineaOrariaLemniscata = (dict["lemniscate"]! as! [Bool])
+        calcPrelim()
+    //    return object
     }
 
     

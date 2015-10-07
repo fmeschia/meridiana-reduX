@@ -14,6 +14,7 @@ class Meridiana: NSView {
     var calcolato : Bool = false
     var elementi : [Segno]!
     var ratio : CGFloat = 1.0
+    override var intrinsicContentSize: NSSize { return CGSize(width: 600, height: 550) }
     
     func calcola() {
         elementi = [Segno]()
@@ -25,18 +26,8 @@ class Meridiana: NSView {
             do {
                 var l: LineaOraria
                 try l = LineaOraria(theModel:theModel!, ha:Utils.deg2rad((Double(h)-12)*15.0), ridotto:true)
+                l.lemniscata = theModel!.lineaOrariaLemniscata[elementi.count]
                 elementi.append(l)
-                var statoLinea : Int
-                if l.tutto {
-                    if (l.lemniscata) {
-                        statoLinea = LineaOrariaState.Lemniscata
-                    } else {
-                        statoLinea = LineaOrariaState.LineaOrariaCompleta
-                    }
-                } else {
-                    statoLinea = LineaOrariaState.LineaParziale
-                }
-                theModel?.statoLineeOrarie.append(statoLinea)
             } catch LineaOrariaError.NoPoints {
  
             } catch {
@@ -99,20 +90,28 @@ class Meridiana: NSView {
         }
     }
     
+    func toggleLemniscata(params: NSDictionary) {
+        undoManager?.registerUndoWithTarget(self, selector: Selector("toggleLemniscata:"), object: params)
+        (params["elemento"] as! LineaOraria).lemniscata = !(params["elemento"] as! LineaOraria).lemniscata
+        theModel!.lineaOrariaLemniscata[(params["index"] as! Int)] = !theModel!.lineaOrariaLemniscata[(params["index"] as! Int)]
+        self.needsDisplay = true
+    }
+    
     override func mouseUp(theEvent: NSEvent) {
         var location: CGPoint = theEvent.locationInWindow
         location = self.convertPoint(location, fromView: nil)
         location.x -= 300/ratio
         location.y -= -self.boundingBox!.origin.y/ratio
-        for elemento in elementi {
+        for (index, elemento) in elementi.enumerate() {
             if elemento is LineaOraria {
                 (elemento as! LineaOraria).premuto = false
                 if (elemento as! LineaOraria).contiene(location, scale: CGFloat(1.0/ratio)) {
                     if (elemento as! LineaOraria).tutto {
-                        (elemento as! LineaOraria).lemniscata = !(elemento as! LineaOraria).lemniscata
+                        toggleLemniscata(["elemento":(elemento as! LineaOraria), "index":index])
+                        //(elemento as! LineaOraria).lemniscata = !(elemento as! LineaOraria).lemniscata
+                        //theModel?.lineaOrariaLemniscata[index] = !theModel!.lineaOrariaLemniscata[index]
                     }
                 }
-                self.needsDisplay = true
             }
         }
     }
@@ -123,46 +122,52 @@ class Meridiana: NSView {
         var layer: CGLayer?
         var layerContext: CGContext?
         let containerFrame = self.frame
+
         if (calcolato) {
             ratio = max(boundingBox!.size.width/containerFrame.size.width,boundingBox!.size.height/containerFrame.size.height)
             ratio = 1.0
             saveGState { ctx in
                 layer = CGLayerCreateWithContext(ctx, self.bounds.size, nil)!
+                
                 layerContext = CGLayerGetContext(layer)!
                 //CGContextTranslateCTM(layerContext, -self.boundingBox!.origin.x/self.ratio, -self.boundingBox!.origin.y/self.ratio)
-                CGContextTranslateCTM(layerContext, 300, -self.boundingBox!.origin.y)
+                CGContextTranslateCTM(ctx, 300, -self.boundingBox!.origin.y)
                 //self.setFrameSize(CGSize(width: 600, height:600))
                 //CGContextScaleCTM(layerContext, CGFloat(1.0/self.ratio), CGFloat(1.0/self.ratio))
                 //self.ratio = 1.0
-                CGContextBeginPath(layerContext)
+
+                CGContextBeginPath(ctx)
                 
 
                 for elemento in self.elementi {
                     if elemento is LineaOraria || elemento is LineaStagionale {
-                        CGContextBeginPath(layerContext);
-                        CGContextSetLineWidth(layerContext,CGFloat(1.0))
-                        CGContextSetAllowsAntialiasing(layerContext, true)
-                        CGContextSetShouldAntialias(layerContext, true)
-                        elemento.draw(layerContext!, scale: CGFloat(1.0/self.ratio))
-                        CGContextStrokePath(layerContext)
+                        CGContextBeginPath(ctx);
+                        CGContextSetLineWidth(ctx,CGFloat(1.0))
+                        //CGContextSetAllowsAntialiasing(layerContext, true)
+                        //CGContextSetShouldAntialias(layerContext, true)
+                        elemento.draw(ctx, scale: CGFloat(1.0/self.ratio))
+                        CGContextStrokePath(ctx)
                     }
                 }
                 
                 CGContextBeginPath(layerContext);
                 for elemento in self.elementi {
                     if elemento is TracciaStilo {
-                        elemento.draw(layerContext!, scale: CGFloat(1.0/self.ratio))
+                        elemento.draw(ctx, scale: CGFloat(1.0/self.ratio))
                     }
                 }
-                CGContextStrokePath(layerContext)
+                CGContextStrokePath(ctx)
             }
+            /*
             
             saveGState { ctx in
                 CGContextDrawLayerAtPoint(ctx, CGPointZero, layer)
                 //CGContextStrokeRect(ctx,self.bounds)
 
             }
+            */
         }
+
     }
     
     /*
