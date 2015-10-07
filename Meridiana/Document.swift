@@ -207,31 +207,31 @@ class Document: NSDocument, CLLocationManagerDelegate {
     
     @IBAction func latitudeAction(sender: AnyObject) {
         let value = latitudeField.doubleValue * (latitudeNorthButton.state == NSOnState ? 1.0 : -1.0)
-        if (Utils.deg2rad(value) - meridiana!.theModel!.fi) > 0.000018 {
+        if abs(Utils.deg2rad(value) - meridiana!.theModel!.fi) > 0.000018 {
             changeMeridianaModel()
         }
     }
     @IBAction func longitudeAction(sender: AnyObject) {
         let value = longitudeField.doubleValue * (longitudeEastButton.state == NSOnState ? 1.0 : -1.0)
-        if (Utils.deg2rad(value) - meridiana!.theModel!.lambda) > 0.000018 {
+        if abs(Utils.deg2rad(value) - meridiana!.theModel!.lambda) > 0.000018 {
             changeMeridianaModel()
         }
     }
     @IBAction func referenceLongitudeAction(sender: AnyObject) {
         let value = referenceLongitudeField.doubleValue * (referenceLongitudeEastButton.state == NSOnState ? 1.0 : -1.0)
-        if (Utils.deg2rad(value) - meridiana!.theModel!.lambdar) > 0.000018 {
+        if abs(Utils.deg2rad(value) - meridiana!.theModel!.lambdar) > 0.000018 {
             changeMeridianaModel()
         }
     }
     @IBAction func declinationAction(sender: AnyObject) {
         let value = declinationField.doubleValue * (declinationWestButton.state == NSOnState ? 1.0 : -1.0)
-        if (Utils.deg2rad(value) - meridiana!.theModel!.delta) > 0.000018 {
+        if abs(Utils.deg2rad(value) - meridiana!.theModel!.delta) > 0.000018 {
             changeMeridianaModel()
         }
     }
     @IBAction func inclinationAction(sender: AnyObject) {
         let value = inclinationField.doubleValue
-        if (Utils.deg2rad(value) - meridiana!.theModel!.iota) > 0.000018 {
+        if abs(Utils.deg2rad(value) - meridiana!.theModel!.iota) > 0.000018 {
             changeMeridianaModel()
         }
     }
