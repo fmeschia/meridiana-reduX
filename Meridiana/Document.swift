@@ -13,6 +13,8 @@ import CoreData
 class Document: NSDocument, CLLocationManagerDelegate {
     var theModel : MeridianaModel = MeridianaModel()
     
+    var printableMeridiana : Meridiana?
+    
     var locationFix : Bool = false
     
     @IBOutlet weak var meridiana: Meridiana!
@@ -28,6 +30,7 @@ class Document: NSDocument, CLLocationManagerDelegate {
         self.init()
         fileType = typeName
         // add your own initialisation for new document here
+        /*
         let autorizationStatus = CLLocationManager.authorizationStatus()
         if (autorizationStatus != CLAuthorizationStatus.Denied) {
             theLocationManager = CLLocationManager()
@@ -35,11 +38,35 @@ class Document: NSDocument, CLLocationManagerDelegate {
             theLocationManager!.delegate = self
             theLocationManager!.startUpdatingLocation()
         }
+*/
+    }
+    
+    override func printDocument(sender: AnyObject?) {
+        setUpPrintObject()
+        let op : NSPrintOperation? = NSPrintOperation(view: printableMeridiana!)
+        op!.printInfo.horizontalPagination = NSPrintingPaginationMode.AutoPagination
+        op!.printInfo.verticalPagination = NSPrintingPaginationMode.AutoPagination
+        op!.printInfo.leftMargin = op!.printInfo.imageablePageBounds.origin.x
+        op!.printInfo.rightMargin = op!.printInfo.paperSize.width - op!.printInfo.imageablePageBounds.width - op!.printInfo.imageablePageBounds.origin.x
+        op!.printInfo.topMargin = op!.printInfo.paperSize.height - op!.printInfo.imageablePageBounds.height - op!.printInfo.imageablePageBounds.origin.y
+        op!.printInfo.bottomMargin = op!.printInfo.imageablePageBounds.origin.y
+        if op != nil {
+            op!.runOperation()
+        }
+        
+    }
+    
+    func setUpPrintObject() {
+        printableMeridiana = Meridiana()
+        printableMeridiana?.ridotto = false
+        printableMeridiana?.theModel = theModel
+        printableMeridiana?.calcola()
+        printableMeridiana?.setFrameSize(NSSize(width:1000, height:1000))
     }
     
     func changeMeridianaModel() {
         undoManager?.registerUndoWithTarget(self, selector: Selector("setFromDict:"), object: theModel.toDictionary())
-        theModel = MeridianaModel()
+        //theModel = MeridianaModel()
         setMeridianaModel()
         meridiana.needsDisplay = true
     }
@@ -59,7 +86,8 @@ class Document: NSDocument, CLLocationManagerDelegate {
         theModel.lambdar = Utils.deg2rad(referenceLongitudeField.doubleValue)*(referenceLongitudeEastButton.state == NSOnState ? 1.0 : -1.0)
         theModel.fi = Utils.deg2rad(latitudeField.doubleValue)*(latitudeNorthButton.state == NSOnState ? 1.0 : -1.0)
         theModel.iota = Utils.deg2rad(inclinationField.doubleValue)
-        theModel.delta = Utils.deg2rad(declinationField.doubleValue)*(declinationWestButton.state != NSOnState ? 1.0 : -1.0)
+        theModel.delta = Utils.deg2rad(declinationField.doubleValue)*(declinationEastButton.state == NSOnState ? 1.0 : -1.0)
+        theModel.altezza = styleHeightField.doubleValue
         theModel.calcPrelim()
         meridiana.theModel = theModel
         meridiana.calcola()
@@ -87,11 +115,12 @@ class Document: NSDocument, CLLocationManagerDelegate {
         }
         inclinationField.doubleValue = Utils.rad2deg(theModel.iota)
         declinationField.doubleValue = Utils.rad2deg(abs(theModel.delta))
-        if theModel.delta < 0.0 {
+        if theModel.delta <= 0.0 {
             declinationWestButton.state = NSOnState
         } else {
             declinationEastButton.state = NSOnState
         }
+        styleHeightField.doubleValue = theModel.altezza
     }
     
     func locationManager(_manager: CLLocationManager,
@@ -101,36 +130,14 @@ class Document: NSDocument, CLLocationManagerDelegate {
             let coord = location!.coordinate
             theModel.fi = Utils.deg2rad(coord.latitude)
             theModel.lambda = Utils.deg2rad(coord.longitude)
-            
-            /*latitudeField.floatValue = Float(abs(coord.latitude))
-            if coord.latitude >= 0.0 {
-                latitudeNorthButton.state = NSOnState
-            } else {
-                latitudeSouthButton.state = NSOnState
-            }
-            longitudeField.floatValue = Float(abs(coord.longitude))
-            if coord.longitude >= 0.0 {
-                longitudeEastButton.state = NSOnState
-            } else {
-                longitudeWestButton.state = NSOnState
-            }
-*/
             let tz = CFTimeZoneCopySystem()
-            let hoursFromGMT = CFTimeZoneGetSecondsFromGMT(tz, CFAbsoluteTimeGetCurrent()) / 3600.0
+            let now = CFAbsoluteTimeGetCurrent()
+            let hoursFromGMT = (CFTimeZoneGetSecondsFromGMT(tz, now) + (CFTimeZoneIsDaylightSavingTime(tz,now) ? -CFTimeZoneGetDaylightSavingTimeOffset(tz, now) : 0)) / 3600.0
             theModel.lambdar = Utils.deg2rad(15.0 * hoursFromGMT)
             theModel.calcPrelim()
-            /*referenceLongitudeField.doubleValue = abs(15.0 * hoursFromGMT)
-            if hoursFromGMT >= 0.0 {
-                referenceLongitudeEastButton.state = NSOnState
-            } else {
-                referenceLongitudeWestButton.state = NSOnState
-            }
-            declinationWestButton.state = NSOnState
-            */
             theLocationManager!.stopUpdatingLocation()
             locationFix = true
             if (meridiana.theModel != nil) {
-                
                 meridiana.calcola()
                 updateFields()
                 meridiana.needsDisplay = true
@@ -143,37 +150,7 @@ class Document: NSDocument, CLLocationManagerDelegate {
         meridiana.theModel = theModel
         meridiana.calcola()
         updateFields()
-        // Add any code here that needs to be executed once the windowController has loaded the document's window.
-     //   if (theModel == nil) {
-            //theModel = MeridianaModel()
-            //meridiana.theModel = theModel
-            /*
-            
-            let autorizationStatus = CLLocationManager.authorizationStatus()
-            if (autorizationStatus != CLAuthorizationStatus.Denied) {
-                theLocationManager = CLLocationManager()
-                theLocationManager!.desiredAccuracy = kCLLocationAccuracyKilometer
-                theLocationManager!.delegate = self
-                theLocationManager!.startUpdatingLocation()
-            }
-            */
-
-            //updateFields()
-            //setMeridianaModel()
-            //inclinationField.doubleValue = 0.0
-            //declinationField.doubleValue = 0.0
-        /*
-            //meridiana.needsDisplay = true
-        } else {
-            meridiana.theModel = theModel
-            updateFields()
-            //setMeridianaModel()
-            meridiana.calcola()
-            meridiana.needsDisplay = true
-        }*/
-
-
-        //meridiana.calcola()
+        //changeMeridianaModel()
     }
 
     override class func autosavesInPlace() -> Bool {
@@ -187,19 +164,12 @@ class Document: NSDocument, CLLocationManagerDelegate {
     }
 
     override func dataOfType(typeName: String) throws -> NSData {
-        // Insert code here to write your document to data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning nil.
-        // You can also choose to override fileWrapperOfType:error:, writeToURL:ofType:error:, or writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
         let orig = theModel.toDictionary()
         let data : NSData = NSKeyedArchiver.archivedDataWithRootObject(orig)
-        //let dict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSDictionary
-        //data = NSKeyedArchiver.archivedDataWithRootObject(theModel.toDictionary())
         return data
     }
 
     override func readFromData(data: NSData, ofType typeName: String) throws {
-        // Insert code here to read your document from the given data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning false.
-        // You can also choose to override readFromFileWrapper:ofType:error: or readFromURL:ofType:error: instead.
-        // If you override either of these, you should also override -isEntireFileLoaded to return false if the contents are lazily loaded.
         let dict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSDictionary
         theModel = MeridianaModel()
         theModel.fromDictionary(dict)
@@ -224,7 +194,7 @@ class Document: NSDocument, CLLocationManagerDelegate {
         }
     }
     @IBAction func declinationAction(sender: AnyObject) {
-        let value = declinationField.doubleValue * (declinationWestButton.state == NSOnState ? 1.0 : -1.0)
+        let value = declinationField.doubleValue * (declinationEastButton.state == NSOnState ? 1.0 : -1.0)
         if abs(Utils.deg2rad(value) - meridiana!.theModel!.delta) > 0.000018 {
             changeMeridianaModel()
         }
@@ -235,6 +205,10 @@ class Document: NSDocument, CLLocationManagerDelegate {
             changeMeridianaModel()
         }
     }
+    @IBAction func styleHeightAction(sender: NSTextField) {
+        setMeridianaModel()
+    }
+    @IBOutlet weak var styleHeightField: NSTextField!
     @IBOutlet weak var declinationEastButton: NSButton!
     @IBOutlet weak var declinationWestButton: NSButton!
     @IBOutlet weak var longitudeEastButton: NSButton!

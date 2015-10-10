@@ -47,7 +47,7 @@ class MeridianaModel: NSObject {
         iota = Utils.deg2rad(0)
         delta = Utils.deg2rad(0)
         lambdar = Utils.deg2rad(15)
-        altezza = 500
+        altezza = 100
         super.init()
         calcPrelim()
     }
@@ -65,7 +65,6 @@ class MeridianaModel: NSObject {
     }
     
     func fromDictionary(dict: NSDictionary)  {
-        //object : MeridianaModel = MeridianaModel()
         lambda = (dict["lambda"]! as! Double)
         fi = (dict["fi"]! as! Double)
         iota = (dict["iota"]! as! Double)
@@ -74,7 +73,6 @@ class MeridianaModel: NSObject {
         altezza = (dict["altezza"]! as! Double)
         lineaOrariaLemniscata = (dict["lemniscate"]! as! [Bool])
         calcPrelim()
-    //    return object
     }
 
     

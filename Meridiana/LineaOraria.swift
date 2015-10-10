@@ -133,9 +133,7 @@ class LineaOraria: Segno {
     func contiene(p: CGPoint, scale: CGFloat) -> Bool {
         var dentro: Bool
         let bounds: CGRect = getBounds()
-        var pt : CGPoint = p
-        //pt.x /= CGFloat(scale)
-        //pt.y /= CGFloat(scale)
+        let pt : CGPoint = p
         if bounds.contains(pt) {
             if (lemniscata) {
                 let path : CGMutablePath = CGPathCreateMutable()

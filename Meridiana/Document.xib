@@ -21,6 +21,7 @@
                 <outlet property="referenceLongitudeEastButton" destination="aHJ-KJ-Jpz" id="eVp-3L-BN5"/>
                 <outlet property="referenceLongitudeField" destination="4sW-qt-3B6" id="ON7-FQ-GE9"/>
                 <outlet property="referenceLongitudeWestButton" destination="tGh-xU-bcQ" id="guA-97-Jqb"/>
+                <outlet property="styleHeightField" destination="YJl-Iq-OjT" id="ySZ-06-Ute"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>
@@ -279,17 +280,46 @@
                                 <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                 <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </box>
+                            <box fixedFrame="YES" title="Style height" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="GMO-wh-Jf2">
+                                <rect key="frame" x="-3" y="31" width="213" height="55"/>
+                                <view key="contentView" id="nFv-pY-8xs">
+                                    <rect key="frame" x="1" y="1" width="211" height="39"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YJl-Iq-OjT">
+                                            <rect key="frame" x="11" y="11" width="90" height="22"/>
+                                            <animations/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Z6w-xo-7xq">
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Xd6-Mr-Vf6">
+                                                    <real key="minimum" value="0.0"/>
+                                                    <real key="maximum" value="2000"/>
+                                                </numberFormatter>
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="styleHeightAction:" target="-2" id="B5S-ph-5bl"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <animations/>
+                                </view>
+                                <animations/>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </box>
                         </subviews>
                         <animations/>
                     </customView>
                     <scrollView ambiguous="YES" misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUT-fg-2LK">
                         <rect key="frame" x="255" y="19" width="368" height="375"/>
                         <clipView key="contentView" ambiguous="YES" id="5yP-b6-mjE">
-                            <rect key="frame" x="1" y="1" width="181" height="94"/>
+                            <rect key="frame" x="1" y="1" width="366" height="373"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HbD-QH-KQH" customClass="Meridiana" customModule="Meridiana">
-                                    <rect key="frame" x="0.0" y="0.0" width="366" height="373"/>
+                                    <rect key="frame" x="0.0" y="279" width="366" height="373"/>
                                     <animations/>
                                 </customView>
                             </subviews>
@@ -297,12 +327,12 @@
                         </clipView>
                         <animations/>
                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="AAK-ue-oc2">
-                            <rect key="frame" x="1" y="79" width="181" height="16"/>
+                            <rect key="frame" x="1" y="358" width="366" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <animations/>
                         </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="2hJ-g9-kFn">
-                            <rect key="frame" x="166" y="1" width="16" height="94"/>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="2hJ-g9-kFn">
+                            <rect key="frame" x="352" y="1" width="15" height="373"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <animations/>
                         </scroller>
