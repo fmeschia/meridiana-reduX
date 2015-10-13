@@ -38,7 +38,7 @@ class MeridianaModel: NSObject {
     private var tf : Double = Double.NaN
     private var saf : Double = Double.NaN
     private var caf : Double = Double.NaN
-
+    let printScala = 72.0/25.4
     let videoScala: Double = 50.0
     
     override init() {
@@ -114,8 +114,8 @@ class MeridianaModel: NSObject {
         if (a1 <= 0.0 || (a2 < 0.17 && strict)) {
             throw MeridianaCalculationError.TooLow
         }
-        let x : Double = (ridotto ? videoScala : altezza) * (cd * sin(h0))/a2
-        let y : Double = (ridotto ? videoScala : altezza) * (-cf*sd + sf*cd*cos(h0))/a2
+        let x : Double = (ridotto ? videoScala : altezza * printScala) * (cd * sin(h0))/a2
+        let y : Double = (ridotto ? videoScala : altezza * printScala) * (-cf*sd + sf*cd*cos(h0))/a2
         out.x = CGFloat(x*caf+y*saf)
         out.y = CGFloat(y*caf-x*saf)
         return out
@@ -131,7 +131,7 @@ class MeridianaModel: NSObject {
         let sf1 : Double = (sf == 0.0 ? 0.00001 : sf)
     
         if (abs(cf/sf1) < 3.0) {
-            y1 = -(ridotto ? videoScala : altezza) * cf / sf1
+            y1 = -(ridotto ? videoScala : altezza * printScala) * cf / sf1
         } else {
             y1 = -50 * (cf/sf1) / abs(cf/sf1)
         }

@@ -41,7 +41,23 @@ class Document: NSDocument, CLLocationManagerDelegate {
 */
     }
     
+    override func printOperationWithSettings(_ printSettings: [String : AnyObject]) throws -> NSPrintOperation {
+        setUpPrintObject()
+        let printInfo = self.printInfo
+        let imageableBounds = printInfo.imageablePageBounds
+        printInfo.horizontalPagination = NSPrintingPaginationMode.AutoPagination
+        printInfo.verticalPagination = NSPrintingPaginationMode.AutoPagination
+        printInfo.leftMargin = max(1,printInfo.imageablePageBounds.origin.x)
+        printInfo.bottomMargin = max(1,printInfo.imageablePageBounds.origin.y)
+        printInfo.rightMargin = max(1,printInfo.paperSize.width - printInfo.imageablePageBounds.width - printInfo.imageablePageBounds.origin.x)
+        printInfo.topMargin = max(1, printInfo.paperSize.height - printInfo.imageablePageBounds.height - printInfo.imageablePageBounds.origin.y)
+        let op : NSPrintOperation = NSPrintOperation(view: printableMeridiana!, printInfo: printInfo)
+        return op
+    }
+    
+    /*
     override func printDocument(sender: AnyObject?) {
+        super.printDocument(sender)
         setUpPrintObject()
         let op : NSPrintOperation? = NSPrintOperation(view: printableMeridiana!)
         op!.printInfo.horizontalPagination = NSPrintingPaginationMode.AutoPagination
@@ -55,13 +71,14 @@ class Document: NSDocument, CLLocationManagerDelegate {
         }
         
     }
+*/
     
     func setUpPrintObject() {
         printableMeridiana = Meridiana()
         printableMeridiana?.ridotto = false
         printableMeridiana?.theModel = theModel
         printableMeridiana?.calcola()
-        printableMeridiana?.setFrameSize(NSSize(width:1000, height:1000))
+        printableMeridiana?.setFrameSize(NSSize(width:(printableMeridiana?.boundingBox?.width)!, height:(printableMeridiana?.boundingBox?.height)!))
     }
     
     func changeMeridianaModel() {

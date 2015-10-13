@@ -50,7 +50,7 @@ class Meridiana: NSView {
             let elementBounds : CGRect = elemento.getBounds()
             boundingBox = CGRectUnion((boundingBox == nil ? elementBounds : boundingBox!), elementBounds)
         }
-        boundingBox = CGRectInset(boundingBox!, -30, -30)
+        boundingBox = CGRectInset(boundingBox!, -20, -20)
         if (ridotto) {
             boundingBox = CGRect(origin: boundingBox!.origin, size:CGSize(width:boundingBox!.width, height:550))
         }
@@ -240,8 +240,10 @@ class Meridiana: NSView {
         let info: NSPrintInfo = NSPrintOperation.currentOperation()!.printInfo
         let paperSize : NSSize = info.paperSize
         let pageHeight : CGFloat = paperSize.height - info.topMargin - info.bottomMargin
-        let scale = CGFloat(1.0)
         let dict = info.dictionary()
+        let scaleFromInfo = (dict["NSScalingFactor"] as! CGFloat)
+        let scale = CGFloat(1.0)
+
         //let scale : CGFloat = info.dictionary()["NSPrintScalingFactor"] as! CGFloat
         return CGFloat(pageHeight / scale)
     }
