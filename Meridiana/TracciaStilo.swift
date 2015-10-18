@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TracciaStilo: Segno {
+class TracciaStilo: NSObject, Segno {
 
     var centro : CGPoint = CGPoint()
     var origine : CGPoint = CGPoint()
@@ -19,6 +19,7 @@ class TracciaStilo: Segno {
     init(model: MeridianaModel, ridotto: Bool) {
         self.theModel = model
         self.ridotto = ridotto
+        super.init()
         calcola()
     }
     

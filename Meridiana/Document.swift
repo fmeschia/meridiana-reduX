@@ -17,7 +17,7 @@ class Document: NSDocument, CLLocationManagerDelegate {
     
     var locationFix : Bool = false
     
-    @IBOutlet weak var meridiana: Meridiana!
+    @IBOutlet var meridiana: Meridiana!
     
     var theLocationManager : CLLocationManager?
     
@@ -225,19 +225,19 @@ class Document: NSDocument, CLLocationManagerDelegate {
     @IBAction func styleHeightAction(sender: NSTextField) {
         setMeridianaModel()
     }
-    @IBOutlet weak var styleHeightField: NSTextField!
-    @IBOutlet weak var declinationEastButton: NSButton!
-    @IBOutlet weak var declinationWestButton: NSButton!
-    @IBOutlet weak var longitudeEastButton: NSButton!
-    @IBOutlet weak var longitudeWestButton: NSButton!
-    @IBOutlet weak var latitudeSouthButton: NSButton!
-    @IBOutlet weak var latitudeNorthButton: NSButton!
-    @IBOutlet weak var referenceLongitudeWestButton: NSButton!
-    @IBOutlet weak var referenceLongitudeEastButton: NSButton!
-    @IBOutlet weak var longitudeField: NSTextField!
-    @IBOutlet weak var latitudeField: NSTextFieldCell!
-    @IBOutlet weak var inclinationField: NSTextField!
-    @IBOutlet weak var declinationField: NSTextField!
-    @IBOutlet weak var referenceLongitudeField: NSTextField!
+    @IBOutlet  var styleHeightField: NSTextField!
+    @IBOutlet  var declinationEastButton: NSButton!
+    @IBOutlet  var declinationWestButton: NSButton!
+    @IBOutlet  var longitudeEastButton: NSButton!
+    @IBOutlet  var longitudeWestButton: NSButton!
+    @IBOutlet  var latitudeSouthButton: NSButton!
+    @IBOutlet  var latitudeNorthButton: NSButton!
+    @IBOutlet  var referenceLongitudeWestButton: NSButton!
+    @IBOutlet  var referenceLongitudeEastButton: NSButton!
+    @IBOutlet  var longitudeField: NSTextField!
+    @IBOutlet  var latitudeField: NSTextFieldCell!
+    @IBOutlet  var inclinationField: NSTextField!
+    @IBOutlet  var declinationField: NSTextField!
+    @IBOutlet  var referenceLongitudeField: NSTextField!
 }
 

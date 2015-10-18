@@ -8,17 +8,17 @@
 
 import Cocoa
 
-enum MeridianaCalculationError: ErrorType {
+public enum MeridianaCalculationError: ErrorType {
     case TooLow
 }
 
-enum LineaOrariaState: Int {
+public enum LineaOrariaState: Int {
     case LineaOrariaCompleta = 1
     case Lemniscata = 2
     case LineaParziale = 3
 }
 
-class MeridianaModel: NSObject {
+public class MeridianaModel: NSObject {
     var lambda : Double = Double.NaN
     var fi     : Double = Double.NaN
     var iota   : Double = Double.NaN
@@ -75,6 +75,17 @@ class MeridianaModel: NSObject {
         calcPrelim()
     }
 
+    
+    func printModel() {
+        print("Meridiana Model:")
+        print("lambda  = \(lambda)")
+        print("phi     = \(fi)")
+        print("iota    = \(iota)")
+        print("delta   = \(delta)")
+        print("lambdar = \(lambda)")
+        print("altezza = \(altezza)")
+
+    }
     
     func calcPrelim() {
         sfi = sin(fi)

@@ -54,11 +54,22 @@ class Meridiana: NSView {
         if (ridotto) {
             boundingBox = CGRect(origin: boundingBox!.origin, size:CGSize(width:boundingBox!.width, height:550))
         }
+        /*
+        let alert = NSAlert()
+        alert.messageText = "Warning"
+        alert.addButtonWithTitle("Yes")
+        alert.addButtonWithTitle("No")
+        alert.informativeText = "Bounding box width=\(boundingBox!.width)"
+        alert.runModal()
+        */
+ 
+        /*
         if (ridotto) {
             self.setFrameSize(CGSize(width: 600, height: boundingBox!.height))
         } else {
             self.setFrameSize(CGSize(width: boundingBox!.width, height: boundingBox!.height))
         }
+        */
     }
     
     private var currentContext : CGContext? {
@@ -92,6 +103,7 @@ class Meridiana: NSView {
                 if (elemento as! LineaOraria).contiene(location, scale: CGFloat(1.0/ratio)) {
                     (elemento as! LineaOraria).premuto = true
                     self.needsDisplay = true
+                    break
                 }
             }
         }
@@ -117,6 +129,7 @@ class Meridiana: NSView {
                         toggleLemniscata(["elemento":(elemento as! LineaOraria), "index":index])
                         //(elemento as! LineaOraria).lemniscata = !(elemento as! LineaOraria).lemniscata
                         //theModel?.lineaOrariaLemniscata[index] = !theModel!.lineaOrariaLemniscata[index]
+                        break
                     }
                 }
             }
@@ -162,6 +175,16 @@ class Meridiana: NSView {
             CGContextMoveToPoint(ctx, -10, 0)
             CGContextAddLineToPoint(ctx, 10, 0)
             CGContextStrokePath(ctx)
+            CGContextSetTextMatrix(ctx, CGAffineTransformIdentity)
+            let pageNumber = NSPrintOperation.currentOperation()?.currentPage
+            let attrs: NSDictionary = [NSFontAttributeName:CTFontCreateWithName("Helvetica", 9, nil)]
+            let attrString : CFAttributedStringRef =
+            CFAttributedStringCreate(kCFAllocatorDefault,"H:\(self.getPageH(pageNumber!)) V:\(self.getPageV(pageNumber!))", attrs)
+            let line = CTLineCreateWithAttributedString(attrString)
+            let textBounds = CTLineGetImageBounds(line, ctx)
+            CGContextSetRGBStrokeColor(ctx, 0, 0, 0, 1)
+            CGContextSetTextPosition(ctx, 5, imageableHeight-textBounds.height-5)
+            CTLineDraw(line, ctx)
         }
   
         unlockFocus()
@@ -179,9 +202,10 @@ class Meridiana: NSView {
                     CGContextTranslateCTM(ctx, 300 , -self.boundingBox!.origin.y)
                 }
 
+                
                 for elemento in self.elementi {
                     if elemento is LineaOraria || elemento is LineaStagionale {
-                        CGContextBeginPath(ctx);
+                        CGContextBeginPath(ctx)
                         CGContextSetLineWidth(ctx,CGFloat(0.5))
                         //CGContextSetAllowsAntialiasing(layerContext, true)
                         //CGContextSetShouldAntialias(layerContext, true)
@@ -189,37 +213,22 @@ class Meridiana: NSView {
                         CGContextStrokePath(ctx)
                     }
                 }
-                CGContextBeginPath(ctx);
+                CGContextBeginPath(ctx)
                 for elemento in self.elementi {
                     if elemento is TracciaStilo {
                         elemento.draw(ctx, scale: CGFloat(1.0/self.ratio))
+                        break
                     }
                 }
                 CGContextStrokePath(ctx)
+
             }
         }
     }
     
-    /*
-    func toDictionary() -> NSDictionary {
-        let dict : NSDictionary = [
-            "model": theModel!.toDictionary()
-        ]
-        return dict
-    }
-    
-    class func fromDictionary(dict: NSDictionary) -> Meridiana {
-        let object : Meridiana = Meridiana()
-        object.theModel = MeridianaModel.fromDictionary(dict)
-        object.calcola()
-        return object
-    }
-*/
     override func knowsPageRange(range: NSRangePointer) -> Bool {
-        let printHeight : CGFloat = calculatePrintHeight()
-        let printWidth : CGFloat = calculatePrintWidth()
-        let horizontalPages: Int = Int(ceil(self.boundingBox!.width / printWidth))
-        let verticalPages: Int = Int(ceil(self.boundingBox!.height / printHeight))
+        let horizontalPages = getHorizontalPages()
+        let verticalPages = getVerticalPages()
         let rangeOut = NSRange(location: 1, length: horizontalPages*verticalPages)
         range.memory = rangeOut
         return true
@@ -228,14 +237,42 @@ class Meridiana: NSView {
     override func rectForPage(page: Int) -> NSRect {
         let printHeight : CGFloat = calculatePrintHeight()
         let printWidth : CGFloat = calculatePrintWidth()
-        let horizontalPages: Int = Int(ceil(self.boundingBox!.width / printWidth))
-        let horizontalPage: Int = (page-1) % horizontalPages
+        let horizontalPages = getHorizontalPages()
+        let horizontalPage = (page-1) % horizontalPages
         let verticalPage: Int = (page-1) / horizontalPages
         //let out = NSMakeRect(self.boundingBox!.origin.x+printWidth*CGFloat(horizontalPage), self.boundingBox!.origin.y+self.boundingBox!.height-printHeight*CGFloat(verticalPage+1), printWidth, printHeight)
         let out = NSMakeRect(printWidth*CGFloat(horizontalPage), boundingBox!.height-printHeight*CGFloat(verticalPage+1), printWidth, printHeight)
         return out
     }
     
+    func getHorizontalPages() -> Int {
+        let printWidth : CGFloat = calculatePrintWidth()
+        let horizontalPages: Int = Int(ceil(self.boundingBox!.width / printWidth))
+        return horizontalPages
+    }
+    
+    func getVerticalPages() -> Int {
+        let printHeight : CGFloat = calculatePrintHeight()
+        let verticalPages: Int = Int(ceil(self.boundingBox!.height / printHeight))
+        return verticalPages
+    }
+    
+    func getPagePosition(pageIn: Int, var pageH: Int, var pageV: Int) {
+        let horizontalPages = getHorizontalPages()
+        pageH = 1 + (pageIn - 1) % horizontalPages
+        pageV = 1 + (pageIn - 1) / horizontalPages
+    }
+    
+    func getPageH(pageNumber: Int) -> Int {
+        let out = 1 + (pageNumber - 1) % getHorizontalPages()
+        return out
+    }
+    
+    func getPageV(pageNumber: Int) -> Int {
+        let out = 1 + (pageNumber - 1) / getVerticalPages()
+        return out
+    }
+
     func calculatePrintHeight () -> CGFloat{
         let info: NSPrintInfo = NSPrintOperation.currentOperation()!.printInfo
         let paperSize : NSSize = info.paperSize
@@ -247,7 +284,7 @@ class Meridiana: NSView {
         //let scale : CGFloat = info.dictionary()["NSPrintScalingFactor"] as! CGFloat
         return CGFloat(pageHeight / scale)
     }
-    
+
     func calculatePrintWidth () -> CGFloat{
         let info: NSPrintInfo = NSPrintOperation.currentOperation()!.printInfo
         let paperSize : NSSize = info.paperSize

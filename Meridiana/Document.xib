@@ -17,7 +17,7 @@
                 <outlet property="longitudeEastButton" destination="xk2-eb-rgN" id="8nX-Z4-kOS"/>
                 <outlet property="longitudeField" destination="tos-pJ-crL" id="K7V-CX-16F"/>
                 <outlet property="longitudeWestButton" destination="egp-Nm-Efr" id="WKK-6W-Mmg"/>
-                <outlet property="meridiana" destination="HbD-QH-KQH" id="KZu-om-BWa"/>
+                <outlet property="meridiana" destination="nnR-3k-juB" id="BvD-KY-ujU"/>
                 <outlet property="referenceLongitudeEastButton" destination="aHJ-KJ-Jpz" id="eVp-3L-BN5"/>
                 <outlet property="referenceLongitudeField" destination="4sW-qt-3B6" id="ON7-FQ-GE9"/>
                 <outlet property="referenceLongitudeWestButton" destination="tGh-xU-bcQ" id="guA-97-Jqb"/>
@@ -31,7 +31,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="235" width="642" height="413"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="500" height="350"/>
             <view key="contentView" id="gIp-Ho-8D9">
                 <rect key="frame" x="0.0" y="0.0" width="642" height="413"/>
@@ -312,13 +312,13 @@
                         </subviews>
                         <animations/>
                     </customView>
-                    <scrollView ambiguous="YES" misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUT-fg-2LK">
-                        <rect key="frame" x="255" y="19" width="368" height="375"/>
-                        <clipView key="contentView" ambiguous="YES" id="5yP-b6-mjE">
+                    <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVJ-NM-ekF">
+                        <rect key="frame" x="254" y="18" width="368" height="375"/>
+                        <clipView key="contentView" ambiguous="YES" id="bU1-40-7sV">
                             <rect key="frame" x="1" y="1" width="366" height="373"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HbD-QH-KQH" customClass="Meridiana" customModule="Meridiana">
+                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nnR-3k-juB" customClass="Meridiana" customModule="Meridiana">
                                     <rect key="frame" x="0.0" y="279" width="366" height="373"/>
                                     <animations/>
                                 </customView>
@@ -326,25 +326,21 @@
                             <animations/>
                         </clipView>
                         <animations/>
-                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="AAK-ue-oc2">
+                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="a1d-HD-SyB">
                             <rect key="frame" x="1" y="358" width="366" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <animations/>
                         </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="2hJ-g9-kFn">
-                            <rect key="frame" x="351" y="1" width="16" height="373"/>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="bQf-GC-9pB">
+                            <rect key="frame" x="352" y="1" width="15" height="373"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <animations/>
                         </scroller>
                     </scrollView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="JUT-fg-2LK" secondAttribute="trailing" constant="20" id="2k1-bv-K98"/>
-                    <constraint firstAttribute="bottom" secondItem="JUT-fg-2LK" secondAttribute="bottom" constant="20" id="3JJ-je-9O3"/>
                     <constraint firstAttribute="bottom" secondItem="pnU-Rt-KHz" secondAttribute="bottom" constant="20" id="ScA-na-cjV"/>
                     <constraint firstItem="pnU-Rt-KHz" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="12" id="Xud-Dy-WhM"/>
-                    <constraint firstItem="JUT-fg-2LK" firstAttribute="leading" secondItem="pnU-Rt-KHz" secondAttribute="trailing" constant="20" id="j0q-sY-uyO"/>
-                    <constraint firstItem="JUT-fg-2LK" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="20" id="kc4-sN-p23"/>
                 </constraints>
                 <animations/>
             </view>

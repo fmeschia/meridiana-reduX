@@ -11,10 +11,8 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    @IBOutlet weak var window: NSWindow!
+//    @IBOutlet var window: NSWindow!
     
-    var masterViewController: MasterViewController!
-
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
     /*    masterViewController = MasterViewController(nibName: "MasterViewController", bundle: nil)

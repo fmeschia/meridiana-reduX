@@ -14,7 +14,7 @@ enum LineaOrariaError: ErrorType {
 
 typealias Polilinea = [CGPoint]
 
-class LineaOraria: Segno {
+class LineaOraria: NSObject, Segno {
     var inizio: CGPoint?
     var fine: CGPoint?
     var curva: Polilinea = Polilinea()
@@ -37,9 +37,11 @@ class LineaOraria: Segno {
         self.alfa = ha
         self.scala = 1.0
         self.ora = Int(round(12 + alfa/Utils.deg2rad(15)))
+        let attrs: NSDictionary = [NSFontAttributeName:CTFontCreateWithName("Helvetica", 9, nil)]
         let attrString : CFAttributedStringRef =
-        CFAttributedStringCreate(kCFAllocatorDefault, roman[ora], nil)
+        CFAttributedStringCreate(kCFAllocatorDefault, roman[ora], attrs)
         line = CTLineCreateWithAttributedString(attrString)
+        super.init()
         try calcola()
     }
     
@@ -102,9 +104,9 @@ class LineaOraria: Segno {
         if deltax == 0.0 {
             deltax = 0.001
         }
-//        let m =
         let x = (fine!.x) + 15 * CGFloat(cos(atan2(Double(fine!.y) - Double(inizio!.y), deltax)))
         let y = (fine!.y) + 15 * CGFloat(sin(atan2(Double(fine!.y) - Double(inizio!.y), deltax)))
+        CGContextSetTextMatrix(ctx, CGAffineTransformIdentity)
         let textBounds = CTLineGetImageBounds(line, ctx)
         CGContextSetRGBStrokeColor(ctx, 0, 0, 0, 1)
         CGContextSetTextPosition(ctx, x-textBounds.width/2, y-textBounds.height/2);
@@ -134,7 +136,7 @@ class LineaOraria: Segno {
         var dentro: Bool
         let bounds: CGRect = getBounds()
         let pt : CGPoint = p
-        if bounds.contains(pt) {
+        if bounds.contains(pt) && tutto {
             if (lemniscata) {
                 let path : CGMutablePath = CGPathCreateMutable()
                 var primo : Bool = true
@@ -180,6 +182,7 @@ class LineaOraria: Segno {
         } else {
             boundsRect = CGRect(x: min(inizio!.x, fine!.x), y: min(inizio!.y, fine!.y), width: abs(fine!.x-inizio!.x), height:abs(fine!.y - inizio!.y))
         }
+        boundsRect = CGRectInset(boundsRect, -3, -3)
         return boundsRect
     }
 }

@@ -9,10 +9,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>QLMeridiana.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>30376EFB1BBCF8A800A64154</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>30C2071E1BCDCA1F000600E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -72,15 +72,15 @@
 		30376EFE1BBCF8A800A64154 /* Meridiana */ = {
 			isa = PBXGroup;
 			children = (
-				30376EFF1BBCF8A800A64154 /* AppDelegate.swift */,
 				30376F0C1BBCF8E400A64154 /* LineaOraria.swift */,
 				30376F0D1BBCF8E400A64154 /* LineaStagionale.swift */,
-				30376F0E1BBCF8E400A64154 /* Meridiana.swift */,
-				30376F1A1BBCF91000A64154 /* MasterViewController.swift */,
-				30376F1B1BBCF91000A64154 /* MasterViewController.xib */,
 				30376F0F1BBCF8E400A64154 /* MeridianaModel.swift */,
 				30376F101BBCF8E400A64154 /* Segno.swift */,
+				30376F0E1BBCF8E400A64154 /* Meridiana.swift */,
 				30376F111BBCF8E400A64154 /* TracciaStilo.swift */,
+				30376EFF1BBCF8A800A64154 /* AppDelegate.swift */,
+				30376F1A1BBCF91000A64154 /* MasterViewController.swift */,
+				30376F1B1BBCF91000A64154 /* MasterViewController.xib */,
 				30376F121BBCF8E400A64154 /* Utils.swift */,
 				30376F011BBCF8A800A64154 /* Assets.xcassets */,
 				30376F031BBCF8A800A64154 /* MainMenu.xib */,
@@ -209,6 +209,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -228,6 +229,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = Meridiana;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -253,6 +255,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -265,6 +268,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Meridiana;
 				SDKROOT = macosx;
 			};
 			name = Release;

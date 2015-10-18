@@ -12,7 +12,7 @@ enum LineaStagionaleError: ErrorType {
     case NoPoints
 }
 
-class LineaStagionale: Segno {
+class LineaStagionale: NSObject, Segno  {
     var theModel: MeridianaModel
     var delta: Double
     var scala: Double
@@ -26,6 +26,7 @@ class LineaStagionale: Segno {
         self.delta = 1.0 + (2.58924/1200.0)
         self.delta += (Double(mesi)/1200.0)
         self.scala = 1.0
+        super.init()
         try calcola()
     }
     
