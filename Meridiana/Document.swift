@@ -30,7 +30,7 @@ class Document: NSDocument, CLLocationManagerDelegate {
         self.init()
         fileType = typeName
         // add your own initialisation for new document here
-        /*
+        
         let autorizationStatus = CLLocationManager.authorizationStatus()
         if (autorizationStatus != CLAuthorizationStatus.Denied) {
             theLocationManager = CLLocationManager()
@@ -38,10 +38,9 @@ class Document: NSDocument, CLLocationManagerDelegate {
             theLocationManager!.delegate = self
             theLocationManager!.startUpdatingLocation()
         }
-*/
     }
     
-    override func printOperationWithSettings(_ printSettings: [String : AnyObject]) throws -> NSPrintOperation {
+    override func printOperationWithSettings(printSettings: [String : AnyObject]) throws -> NSPrintOperation {
         setUpPrintObject()
         let printInfo = self.printInfo
         let imageableBounds = printInfo.imageablePageBounds

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MasterViewController" customModule="Meridiana" customModuleProvider="target">
@@ -18,7 +18,6 @@
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="mlF-jz-SgB" customClass="Meridiana" customModule="Meridiana">
                     <rect key="frame" x="20" y="20" width="560" height="360"/>
-                    <animations/>
                 </customView>
             </subviews>
             <constraints>
@@ -27,7 +26,6 @@
                 <constraint firstItem="mlF-jz-SgB" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="NxY-S4-VbW"/>
                 <constraint firstAttribute="bottom" secondItem="mlF-jz-SgB" secondAttribute="bottom" constant="20" id="mhQ-qc-gFb"/>
             </constraints>
-            <animations/>
             <point key="canvasLocation" x="294" y="-546"/>
         </customView>
     </objects>
