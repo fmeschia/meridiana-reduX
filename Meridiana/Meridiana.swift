@@ -20,23 +20,23 @@ class Meridiana: NSView {
     
     func calcola() {
         elementi = [Segno]()
-        boundingBox = CGRectZero
+        boundingBox = CGRect.zero
         let tracciaStilo : TracciaStilo = TracciaStilo(model: self.theModel!, ridotto: ridotto)
         elementi.append(tracciaStilo)
         
-        for var h = 0; h < 24; h++ {
+        for h in 0 ..< 24 {
             do {
                 var l: LineaOraria
                 try l = LineaOraria(theModel:theModel!, ha:Utils.deg2rad((Double(h)-12)*15.0), ridotto:ridotto)
                 l.lemniscata = theModel!.lineaOrariaLemniscata[elementi.count]
                 elementi.append(l)
-            } catch LineaOrariaError.NoPoints {
+            } catch LineaOrariaError.noPoints {
  
             } catch {
                 
             }
         }
-        for var m = -3; m <= 3; m++ {
+        for m in -3...3 {
             do {
                 var l: LineaStagionale
                 try l = LineaStagionale(theModel: theModel!, mesi: Double(m), ridotto: ridotto)
@@ -48,9 +48,9 @@ class Meridiana: NSView {
         calcolato = true
         for elemento in self.elementi {
             let elementBounds : CGRect = elemento.getBounds()
-            boundingBox = CGRectUnion((boundingBox == nil ? elementBounds : boundingBox!), elementBounds)
+            boundingBox = (boundingBox == nil ? elementBounds : boundingBox!).union(elementBounds)
         }
-        boundingBox = CGRectInset(boundingBox!, -20, -20)
+        boundingBox = boundingBox!.insetBy(dx: -20, dy: -20)
         if (ridotto) {
             boundingBox = CGRect(origin: boundingBox!.origin, size:CGSize(width:boundingBox!.width, height:550))
         }
@@ -72,30 +72,32 @@ class Meridiana: NSView {
         */
     }
     
-    private var currentContext : CGContext? {
+    /*
+    fileprivate var currentContext : CGContext? {
         get {
             if #available(OSX 10.10, *) {
-                return NSGraphicsContext.currentContext()?.CGContext
-            } else if let contextPointer = NSGraphicsContext.currentContext()?.graphicsPort {
-                let context: CGContextRef = Unmanaged.fromOpaque(COpaquePointer(contextPointer)).takeUnretainedValue()
+                return NSGraphicsContext.current()?.cgContext
+            } else if let contextPointer = NSGraphicsContext.current()?.graphicsPort {
+                let context: CGContext = Unmanaged.fromOpaque(OpaquePointer(contextPointer)).takeUnretainedValue()
                 return context
             }
             
             return nil
         }
     }
+     */
     
-    private func saveGState(drawStuff: (ctx:CGContextRef) -> ()) -> () {
-        if let context = self.currentContext {
-            CGContextSaveGState (context)
-            drawStuff(ctx: context)
-            CGContextRestoreGState (context)
+    fileprivate func saveGState(_ drawStuff: (_ ctx:CGContext) -> ()) -> () {
+        if let context = NSGraphicsContext.current()?.cgContext {
+            context.saveGState ()
+            drawStuff(context)
+            context.restoreGState ()
         }
     }
     
-    override func mouseDown(theEvent: NSEvent) {
+    override func mouseDown(with theEvent: NSEvent) {
         var location: CGPoint = theEvent.locationInWindow
-        location = self.convertPoint(location, fromView: nil)
+        location = self.convert(location, from: nil)
         location.x -= 300/ratio
         location.y -= -self.boundingBox!.origin.y/ratio
         for elemento in elementi {
@@ -109,19 +111,19 @@ class Meridiana: NSView {
         }
     }
     
-    func toggleLemniscata(params: NSDictionary) {
-        undoManager?.registerUndoWithTarget(self, selector: Selector("toggleLemniscata:"), object: params)
+    func toggleLemniscata(_ params: NSDictionary) {
+        undoManager?.registerUndo(withTarget: self, selector: #selector(Meridiana.toggleLemniscata(_:)), object: params)
         (params["elemento"] as! LineaOraria).lemniscata = !(params["elemento"] as! LineaOraria).lemniscata
         theModel!.lineaOrariaLemniscata[(params["index"] as! Int)] = !theModel!.lineaOrariaLemniscata[(params["index"] as! Int)]
         self.needsDisplay = true
     }
     
-    override func mouseUp(theEvent: NSEvent) {
+    override func mouseUp(with theEvent: NSEvent) {
         var location: CGPoint = theEvent.locationInWindow
-        location = self.convertPoint(location, fromView: nil)
+        location = self.convert(location, from: nil)
         location.x -= 300/ratio
         location.y -= -self.boundingBox!.origin.y/ratio
-        for (index, elemento) in elementi.enumerate() {
+        for (index, elemento) in elementi.enumerated() {
             if elemento is LineaOraria {
                 (elemento as! LineaOraria).premuto = false
                 if (elemento as! LineaOraria).contiene(location, scale: CGFloat(1.0/ratio)) {
@@ -136,9 +138,9 @@ class Meridiana: NSView {
         }
     }
 
-    override func drawPageBorderWithSize(borderSize: NSSize) {
+    override func drawPageBorder(with borderSize: NSSize) {
         let savedFrame = frame
-        let info: NSPrintInfo = NSPrintOperation.currentOperation()!.printInfo
+        let info: NSPrintInfo = NSPrintOperation.current()!.printInfo
         let imageableBounds = info.imageablePageBounds
         setFrameOrigin(info.imageablePageBounds.origin)
         setFrameSize(info.imageablePageBounds.size)
@@ -146,44 +148,45 @@ class Meridiana: NSView {
         let imageableWidth = info.imageablePageBounds.size.width
         lockFocus()
         saveGState { ctx in
-            CGContextTranslateCTM(ctx, info.imageablePageBounds.origin.x, info.imageablePageBounds.origin.y)
-            CGContextSetLineWidth(ctx,CGFloat(1.0))
-            CGContextMoveToPoint(ctx, 0, imageableHeight-10)
-            CGContextAddLineToPoint(ctx, 0, imageableHeight+10)
-            CGContextMoveToPoint(ctx,-10, imageableHeight)
-            CGContextAddLineToPoint(ctx, 10, imageableHeight)
-            CGContextStrokePath(ctx)
-            CGContextBeginPath(ctx)
-            CGContextSetLineWidth(ctx,CGFloat(1.0))
-            CGContextMoveToPoint(ctx, imageableWidth, imageableHeight-10)
-            CGContextAddLineToPoint(ctx, imageableWidth, imageableHeight+10)
-            CGContextMoveToPoint(ctx, imageableWidth+10, imageableHeight)
-            CGContextAddLineToPoint(ctx, imageableWidth-10, imageableHeight)
-            CGContextStrokePath(ctx)
-            CGContextStrokePath(ctx)
-            CGContextBeginPath(ctx)
-            CGContextSetLineWidth(ctx,CGFloat(1.0))
-            CGContextMoveToPoint(ctx, imageableWidth, 10)
-            CGContextAddLineToPoint(ctx, imageableWidth, -10)
-            CGContextMoveToPoint(ctx, imageableWidth+10, 0)
-            CGContextAddLineToPoint(ctx, imageableWidth-10, 0)
-            CGContextStrokePath(ctx)
-            CGContextBeginPath(ctx)
-            CGContextSetLineWidth(ctx,CGFloat(1.0))
-            CGContextMoveToPoint(ctx, 0, 10)
-            CGContextAddLineToPoint(ctx, 0, -10)
-            CGContextMoveToPoint(ctx, -10, 0)
-            CGContextAddLineToPoint(ctx, 10, 0)
-            CGContextStrokePath(ctx)
-            CGContextSetTextMatrix(ctx, CGAffineTransformIdentity)
-            let pageNumber = NSPrintOperation.currentOperation()?.currentPage
-            let attrs: NSDictionary = [NSFontAttributeName:CTFontCreateWithName("Helvetica", 9, nil)]
-            let attrString : CFAttributedStringRef =
-            CFAttributedStringCreate(kCFAllocatorDefault,"H:\(self.getPageH(pageNumber!)) V:\(self.getPageV(pageNumber!))", attrs)
+            ctx.translateBy(x: info.imageablePageBounds.origin.x, y: info.imageablePageBounds.origin.y)
+            ctx.setLineWidth(CGFloat(1.0))
+            ctx.move(to: CGPoint(x: 0, y: imageableHeight-10))
+            ctx.addLine(to: CGPoint(x: 0, y: imageableHeight+10))
+            ctx.move(to: CGPoint(x: -10, y: imageableHeight))
+            ctx.addLine(to: CGPoint(x: 10, y: imageableHeight))
+            ctx.strokePath()
+            ctx.beginPath()
+            ctx.setLineWidth(CGFloat(1.0))
+            ctx.move(to: CGPoint(x: imageableWidth, y: imageableHeight-10))
+            ctx.addLine(to: CGPoint(x: imageableWidth, y: imageableHeight+10))
+            ctx.move(to: CGPoint(x: imageableWidth+10, y: imageableHeight))
+            ctx.addLine(to: CGPoint(x: imageableWidth-10, y: imageableHeight))
+            ctx.strokePath()
+            ctx.strokePath()
+            ctx.beginPath()
+            ctx.setLineWidth(CGFloat(1.0))
+            ctx.move(to: CGPoint(x: imageableWidth, y: 10))
+            ctx.addLine(to: CGPoint(x: imageableWidth, y: -10))
+            ctx.move(to: CGPoint(x: imageableWidth+10, y: 0))
+            ctx.addLine(to: CGPoint(x: imageableWidth-10, y: 0))
+            ctx.strokePath()
+            ctx.beginPath()
+            ctx.setLineWidth(CGFloat(1.0))
+            ctx.move(to: CGPoint(x: 0, y: 10))
+            ctx.addLine(to: CGPoint(x: 0, y: -10))
+            ctx.move(to: CGPoint(x: -10, y: 0))
+            ctx.addLine(to: CGPoint(x: 10, y: 0))
+            ctx.strokePath()
+            ctx.textMatrix = CGAffineTransform.identity
+            let pageNumber = NSPrintOperation.current()?.currentPage
+            let attrs: NSDictionary = [NSFontAttributeName:CTFontCreateWithName("Helvetica" as CFString?, 9, nil)]
+            let attrString : CFAttributedString =
+            CFAttributedStringCreate(kCFAllocatorDefault,"H:\(self.getPageH(pageNumber!)) V:\(self.getPageV(pageNumber!))" as CFString!, attrs)
             let line = CTLineCreateWithAttributedString(attrString)
             let textBounds = CTLineGetImageBounds(line, ctx)
-            CGContextSetRGBStrokeColor(ctx, 0, 0, 0, 1)
-            CGContextSetTextPosition(ctx, 5, imageableHeight-textBounds.height-5)
+            ctx.setStrokeColor(red: 0, green: 0, blue: 0, alpha: 1)
+            ctx.textPosition = CGPoint(x:5, y:imageableHeight-textBounds.height-5)
+            //CGContextSetTextPosition(ctx, 5, imageableHeight-textBounds.height-5)
             CTLineDraw(line, ctx)
         }
   
@@ -192,49 +195,49 @@ class Meridiana: NSView {
         setFrameSize(savedFrame.size)
     }
     
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
         if (calcolato) {
             saveGState { ctx in
                 if !NSGraphicsContext.currentContextDrawingToScreen() {
-                    CGContextTranslateCTM(ctx, -self.boundingBox!.origin.x, -self.boundingBox!.origin.y)
+                    ctx.translateBy(x: -self.boundingBox!.origin.x, y: -self.boundingBox!.origin.y)
                 } else {
-                    CGContextTranslateCTM(ctx, 300 , -self.boundingBox!.origin.y)
+                    ctx.translateBy(x: 300 , y: -self.boundingBox!.origin.y)
                 }
 
                 
                 for elemento in self.elementi {
                     if elemento is LineaOraria || elemento is LineaStagionale {
-                        CGContextBeginPath(ctx)
-                        CGContextSetLineWidth(ctx,CGFloat(0.5))
+                        ctx.beginPath()
+                        ctx.setLineWidth(CGFloat(0.5))
                         //CGContextSetAllowsAntialiasing(layerContext, true)
                         //CGContextSetShouldAntialias(layerContext, true)
                         elemento.draw(ctx, scale: CGFloat(1.0/self.ratio))
-                        CGContextStrokePath(ctx)
+                        ctx.strokePath()
                     }
                 }
-                CGContextBeginPath(ctx)
+                ctx.beginPath()
                 for elemento in self.elementi {
                     if elemento is TracciaStilo {
                         elemento.draw(ctx, scale: CGFloat(1.0/self.ratio))
                         break
                     }
                 }
-                CGContextStrokePath(ctx)
+                ctx.strokePath()
 
             }
         }
     }
     
-    override func knowsPageRange(range: NSRangePointer) -> Bool {
+    override func knowsPageRange(_ range: NSRangePointer) -> Bool {
         let horizontalPages = getHorizontalPages()
         let verticalPages = getVerticalPages()
         let rangeOut = NSRange(location: 1, length: horizontalPages*verticalPages)
-        range.memory = rangeOut
+        range.pointee = rangeOut
         return true
     }
     
-    override func rectForPage(page: Int) -> NSRect {
+    override func rectForPage(_ page: Int) -> NSRect {
         let printHeight : CGFloat = calculatePrintHeight()
         let printWidth : CGFloat = calculatePrintWidth()
         let horizontalPages = getHorizontalPages()
@@ -257,24 +260,25 @@ class Meridiana: NSView {
         return verticalPages
     }
     
-    func getPagePosition(pageIn: Int, var pageH: Int, var pageV: Int) {
+    func getPagePosition(_ pageIn: Int, pageH: Int, pageV: Int) {
+        var pageH = pageH, pageV = pageV
         let horizontalPages = getHorizontalPages()
         pageH = 1 + (pageIn - 1) % horizontalPages
         pageV = 1 + (pageIn - 1) / horizontalPages
     }
     
-    func getPageH(pageNumber: Int) -> Int {
+    func getPageH(_ pageNumber: Int) -> Int {
         let out = 1 + (pageNumber - 1) % getHorizontalPages()
         return out
     }
     
-    func getPageV(pageNumber: Int) -> Int {
+    func getPageV(_ pageNumber: Int) -> Int {
         let out = 1 + (pageNumber - 1) / getVerticalPages()
         return out
     }
 
     func calculatePrintHeight () -> CGFloat{
-        let info: NSPrintInfo = NSPrintOperation.currentOperation()!.printInfo
+        let info: NSPrintInfo = NSPrintOperation.current()!.printInfo
         let paperSize : NSSize = info.paperSize
         let pageHeight : CGFloat = paperSize.height - info.topMargin - info.bottomMargin
         let dict = info.dictionary()
@@ -286,7 +290,7 @@ class Meridiana: NSView {
     }
 
     func calculatePrintWidth () -> CGFloat{
-        let info: NSPrintInfo = NSPrintOperation.currentOperation()!.printInfo
+        let info: NSPrintInfo = NSPrintOperation.current()!.printInfo
         let paperSize : NSSize = info.paperSize
         let pageWidth : CGFloat = paperSize.width - info.leftMargin - info.rightMargin
         let scale = CGFloat(1.0)

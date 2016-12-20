@@ -8,8 +8,8 @@
 
 import Cocoa
 
-enum LineaOrariaError: ErrorType {
-    case NoPoints
+enum LineaOrariaError: Error {
+    case noPoints
 }
 
 typealias Polilinea = [CGPoint]
@@ -18,7 +18,7 @@ class LineaOraria: NSObject, Segno {
     var inizio: CGPoint?
     var fine: CGPoint?
     var curva: Polilinea = Polilinea()
-    var line: CTLineRef
+    var line: CTLine
     var ora: Int
     var alfa: Double
     var theModel: MeridianaModel
@@ -37,9 +37,9 @@ class LineaOraria: NSObject, Segno {
         self.alfa = ha
         self.scala = 1.0
         self.ora = Int(round(12 + alfa/Utils.deg2rad(15)))
-        let attrs: NSDictionary = [NSFontAttributeName:CTFontCreateWithName("Helvetica", 9, nil)]
-        let attrString : CFAttributedStringRef =
-        CFAttributedStringCreate(kCFAllocatorDefault, roman[ora], attrs)
+        let attrs: NSDictionary = [NSFontAttributeName:CTFontCreateWithName("Helvetica" as CFString?, 9, nil)]
+        let attrString : CFAttributedString =
+        CFAttributedStringCreate(kCFAllocatorDefault, roman[ora] as CFString!, attrs)
         line = CTLineCreateWithAttributedString(attrString)
         super.init()
         try calcola()
@@ -50,7 +50,7 @@ class LineaOraria: NSObject, Segno {
         tutto = true
         var tau: Double
         var p: CGPoint
-        for var k = 0; k <= 144 ; k++ {
+        for k in 0...144 {
             do {
                 tau = 1.0 + 2.58924/1200.0
                 tau += Double(k) / 14400.0
@@ -68,22 +68,22 @@ class LineaOraria: NSObject, Segno {
         }
         //if (calcolato) {
             calcolato = false
-            for var m = -3; m <= 3 ; m++ {
-            do {
-                    tau = 1.0 + (2.58924/1200.0)
-                    tau += (Double(m)/1200.0)
-                    try p = theModel.calcola(alfa, tau:tau, medio:false, strict:true, ridotto:ridotto)
-                    if (!calcolato) {
-                        inizio = p //inizio.scale(scala);
-                        fine = p
-                        calcolato = true;
-                    } else {
-                        fine = p //inizio.scale(scala);
+            for m in -3...3 {
+                do {
+                        tau = 1.0 + (2.58924/1200.0)
+                        tau += (Double(m)/1200.0)
+                        try p = theModel.calcola(alfa, tau:tau, medio:false, strict:true, ridotto:ridotto)
+                        if (!calcolato) {
+                            inizio = p //inizio.scale(scala);
+                            fine = p
+                            calcolato = true;
+                        } else {
+                            fine = p //inizio.scale(scala);
+                        }
+                    } catch {
+                        tutto = false
                     }
-                } catch {
-                    tutto = false
                 }
-            }
         if inizio == fine {
             calcolato = false
             tutto = false
@@ -93,65 +93,68 @@ class LineaOraria: NSObject, Segno {
             lemniscata = false
         }
         if (!calcolato) {
-            throw LineaOrariaError.NoPoints
+            throw LineaOrariaError.noPoints
         }
             //inizio!.y = -(inizio!.y)
         //fine!.y = -(fine!.y)
     }
     
-    func draw(ctx: CGContext, scale: CGFloat) {
+    func draw(_ ctx: CGContext, scale: CGFloat) {
         var deltax : Double = Double(fine!.x) - Double(inizio!.x)
         if deltax == 0.0 {
             deltax = 0.001
         }
         let x = (fine!.x) + 15 * CGFloat(cos(atan2(Double(fine!.y) - Double(inizio!.y), deltax)))
         let y = (fine!.y) + 15 * CGFloat(sin(atan2(Double(fine!.y) - Double(inizio!.y), deltax)))
-        CGContextSetTextMatrix(ctx, CGAffineTransformIdentity)
+        ctx.textMatrix = CGAffineTransform.identity
         let textBounds = CTLineGetImageBounds(line, ctx)
-        CGContextSetRGBStrokeColor(ctx, 0, 0, 0, 1)
-        CGContextSetTextPosition(ctx, x-textBounds.width/2, y-textBounds.height/2);
+        ctx.setStrokeColor(red: 0, green: 0, blue: 0, alpha: 1)
+        ctx.textPosition = CGPoint(x:x-textBounds.width/2, y:y-textBounds.height/2)
         CTLineDraw(line, ctx);
          if (premuto) {
-            CGContextSetLineWidth(ctx,CGFloat(3.0))
+            ctx.setLineWidth(CGFloat(3.0))
         }
         if (tutto && lemniscata) {
             var primo : Bool = true
             for punto: CGPoint in curva {
                 if primo {
-                    CGContextMoveToPoint(ctx, punto.x, punto.y)
+                    ctx.move(to: CGPoint(x: punto.x, y: punto.y))
                     primo = false
                 } else {
-                    CGContextAddLineToPoint(ctx, punto.x, punto.y)
+                    ctx.addLine(to: CGPoint(x: punto.x, y: punto.y))
                 }
             }
         } else {
-            CGContextMoveToPoint(ctx, inizio!.x, inizio!.y)
-            CGContextAddLineToPoint(ctx, fine!.x, fine!.y)
+            ctx.move(to: CGPoint(x: inizio!.x, y: inizio!.y))
+            ctx.addLine(to: CGPoint(x: fine!.x, y: fine!.y))
         }
         
     }
     
     
-    func contiene(p: CGPoint, scale: CGFloat) -> Bool {
+    func contiene(_ p: CGPoint, scale: CGFloat) -> Bool {
         var dentro: Bool
         let bounds: CGRect = getBounds()
         let pt : CGPoint = p
         if bounds.contains(pt) && tutto {
             if (lemniscata) {
-                let path : CGMutablePath = CGPathCreateMutable()
+                let path : CGMutablePath = CGMutablePath()
                 var primo : Bool = true
                 for punto: CGPoint in curva {
                     if primo {
-                        CGPathMoveToPoint(path, nil, punto.x, punto.y)
+                        path.move(to: CGPoint(x:punto.x, y:punto.y))
+                        //CGPathMoveToPoint(path, nil, punto.x, punto.y)
                         primo = false
                     } else {
-                        CGPathAddLineToPoint(path, nil, punto.x, punto.y)
+                        path.addLine(to: CGPoint(x:punto.x, y:punto.y))
+                        //CGPathAddLineToPoint(path, nil, punto.x, punto.y)
                     }
                 }
-                dentro = CGPathContainsPoint(path, nil, pt, true)
+                dentro = path.contains(pt, using:CGPathFillRule.evenOdd)
+                //dentro = CGPathContainsPoint(path, nil, pt, true)
             }else {
                 var m : Double = Double((inizio!.y - fine!.y) / (inizio!.x - fine!.x))
-                if (isinf(m)) {
+                if m.isInfinite {
                     m = 1e6
                 }
                 let n: Double =  Double(fine!.y) - m * Double(fine!.x)
@@ -172,17 +175,17 @@ class LineaOraria: NSObject, Segno {
             var primo : Bool = true
             for punto: CGPoint in curva {
                 if primo {
-                    boundsRect = CGRect(origin: punto, size: CGSizeZero)
+                    boundsRect = CGRect(origin: punto, size: CGSize.zero)
                     primo = false
                 } else {
-                    boundsRect = CGRectUnion(boundsRect, CGRect(origin: punto, size:CGSizeZero))
+                    boundsRect = boundsRect.union(CGRect(origin: punto, size:CGSize.zero))
                 }
             }
             return boundsRect
         } else {
             boundsRect = CGRect(x: min(inizio!.x, fine!.x), y: min(inizio!.y, fine!.y), width: abs(fine!.x-inizio!.x), height:abs(fine!.y - inizio!.y))
         }
-        boundsRect = CGRectInset(boundsRect, -3, -3)
+        boundsRect = boundsRect.insetBy(dx: -3, dy: -3)
         return boundsRect
     }
 }

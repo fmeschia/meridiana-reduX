@@ -8,8 +8,8 @@
 
 import Cocoa
 
-enum LineaStagionaleError: ErrorType {
-    case NoPoints
+enum LineaStagionaleError: Error {
+    case noPoints
 }
 
 class LineaStagionale: NSObject, Segno  {
@@ -34,7 +34,7 @@ class LineaStagionale: NSObject, Segno  {
         var calcolato: Bool = false
         var p : CGPoint
         var segm = Polilinea()
-        for var i = 0; i <= 96; i++ {
+        for i in 0...96 {
             do {
                 try p = theModel.calcola(Utils.deg2rad(Double(i-24)*3.75), tau:delta, medio: false, strict: true, ridotto: ridotto)
                 if i%4 == 0 || !segm.isEmpty {
@@ -52,7 +52,7 @@ class LineaStagionale: NSObject, Segno  {
             }
         }
         if !calcolato {
-            throw LineaStagionaleError.NoPoints
+            throw LineaStagionaleError.noPoints
         }
         if !segm.isEmpty {
             while segm.count % 4 != 1 {
@@ -62,15 +62,15 @@ class LineaStagionale: NSObject, Segno  {
         }
     }
     
-    func draw(ctx: CGContext, scale: CGFloat) {
+    func draw(_ ctx: CGContext, scale: CGFloat) {
         for segmento in segmenti {
             var primo = true
             for punto in segmento {
                 if (primo) {
-                    CGContextMoveToPoint(ctx, punto.x, punto.y)
+                    ctx.move(to: CGPoint(x: punto.x, y: punto.y))
                     primo = false
                 } else {
-                    CGContextAddLineToPoint(ctx, punto.x, punto.y)
+                    ctx.addLine(to: CGPoint(x: punto.x, y: punto.y))
                 }
             }
         }
@@ -78,14 +78,14 @@ class LineaStagionale: NSObject, Segno  {
     
     func getBounds() -> CGRect {
         var primo = true
-        var bounds : CGRect = CGRectZero
+        var bounds : CGRect = CGRect.zero
         for segmento in segmenti {
             for punto in segmento {
                 if (primo) {
                     bounds = CGRect(origin: punto, size: CGSize(width: 0.0, height: 0.0))
                     primo = false
                 } else {
-                    bounds = CGRectUnion(bounds, CGRect(origin:punto, size:CGSize(width:0.0, height: 0.0)));
+                    bounds = bounds.union(CGRect(origin:punto, size:CGSize(width:0.0, height: 0.0)));
                 }
             }
         }

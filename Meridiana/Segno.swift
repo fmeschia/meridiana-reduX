@@ -9,6 +9,6 @@
 import Cocoa
 
 protocol Segno {
-    func draw(ctx: CGContext, scale: CGFloat)
+    func draw(_ ctx: CGContext, scale: CGFloat)
     func getBounds() -> CGRect
 }

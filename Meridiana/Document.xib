@@ -38,12 +38,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="642" height="413"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box horizontalHuggingPriority="750" ambiguous="YES" misplaced="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="pnU-Rt-KHz">
+                    <box horizontalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="pnU-Rt-KHz">
                         <rect key="frame" x="236" y="20" width="5" height="381"/>
                     </box>
-                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7ZF-WY-mQD">
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="7ZF-WY-mQD">
                         <rect key="frame" x="20" y="20" width="207" height="381"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <box fixedFrame="YES" borderType="line" title="Inclination" translatesAutoresizingMaskIntoConstraints="NO" id="8Rg-hV-40j">
                                 <rect key="frame" x="-3" y="208" width="213" height="55"/>
@@ -291,17 +290,22 @@
                             </box>
                         </subviews>
                     </customView>
-                    <scrollView ambiguous="YES" misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVJ-NM-ekF">
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVJ-NM-ekF">
                         <rect key="frame" x="254" y="18" width="368" height="375"/>
-                        <clipView key="contentView" ambiguous="YES" id="bU1-40-7sV">
+                        <clipView key="contentView" id="bU1-40-7sV">
                             <rect key="frame" x="1" y="1" width="366" height="373"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nnR-3k-juB" customClass="Meridiana" customModule="Meridiana">
+                                <customView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nnR-3k-juB" customClass="Meridiana" customModule="Meridiana">
                                     <rect key="frame" x="0.0" y="279" width="366" height="373"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </customView>
                             </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="nnR-3k-juB" secondAttribute="trailing" id="AtS-Tw-8Wt"/>
+                                <constraint firstItem="nnR-3k-juB" firstAttribute="top" secondItem="bU1-40-7sV" secondAttribute="top" id="MQL-No-TCp"/>
+                                <constraint firstItem="nnR-3k-juB" firstAttribute="leading" secondItem="bU1-40-7sV" secondAttribute="leading" id="hSO-oA-PVg"/>
+                                <constraint firstAttribute="bottom" secondItem="nnR-3k-juB" secondAttribute="bottom" id="rdp-XJ-qBX"/>
+                            </constraints>
                         </clipView>
                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="a1d-HD-SyB">
                             <rect key="frame" x="1" y="358" width="366" height="16"/>
@@ -315,11 +319,20 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="JVJ-NM-ekF" secondAttribute="trailing" constant="20" id="5Tu-Sm-5XJ"/>
+                    <constraint firstItem="pnU-Rt-KHz" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" constant="238" id="Btz-Xz-nzY"/>
+                    <constraint firstItem="7ZF-WY-mQD" firstAttribute="top" secondItem="pnU-Rt-KHz" secondAttribute="top" id="GWu-wn-E91"/>
+                    <constraint firstItem="7ZF-WY-mQD" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" constant="20" symbolic="YES" id="INq-Ce-idv"/>
+                    <constraint firstAttribute="trailing" secondItem="JVJ-NM-ekF" secondAttribute="trailing" constant="20" id="Jzl-jW-orK"/>
                     <constraint firstAttribute="bottom" secondItem="JVJ-NM-ekF" secondAttribute="bottom" constant="18" id="K5U-rA-9zp"/>
-                    <constraint firstAttribute="bottom" secondItem="pnU-Rt-KHz" secondAttribute="bottom" constant="20" id="ScA-na-cjV"/>
+                    <constraint firstItem="7ZF-WY-mQD" firstAttribute="bottom" secondItem="pnU-Rt-KHz" secondAttribute="bottom" id="Njm-a5-A9S"/>
+                    <constraint firstItem="JVJ-NM-ekF" firstAttribute="leading" secondItem="pnU-Rt-KHz" secondAttribute="trailing" constant="15" id="QGn-B5-84U"/>
+                    <constraint firstItem="JVJ-NM-ekF" firstAttribute="leading" secondItem="pnU-Rt-KHz" secondAttribute="trailing" constant="15" id="RS0-lv-cP1"/>
                     <constraint firstItem="JVJ-NM-ekF" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="20" id="UM0-ch-7js"/>
-                    <constraint firstItem="pnU-Rt-KHz" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="12" id="Xud-Dy-WhM"/>
-                    <constraint firstItem="JVJ-NM-ekF" firstAttribute="leading" secondItem="pnU-Rt-KHz" secondAttribute="trailing" constant="15" id="mxe-PF-PJR"/>
+                    <constraint firstItem="pnU-Rt-KHz" firstAttribute="leading" secondItem="7ZF-WY-mQD" secondAttribute="trailing" constant="11" id="Uaw-Rb-yBt"/>
+                    <constraint firstAttribute="bottom" secondItem="JVJ-NM-ekF" secondAttribute="bottom" constant="18" id="gah-6n-ayG"/>
+                    <constraint firstItem="pnU-Rt-KHz" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="12" symbolic="YES" id="tYY-qU-ng6"/>
+                    <constraint firstAttribute="bottom" secondItem="pnU-Rt-KHz" secondAttribute="bottom" constant="20" id="ux5-Ie-HMu"/>
+                    <constraint firstItem="JVJ-NM-ekF" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="20" id="ym7-VJ-bOC"/>
                 </constraints>
             </view>
             <connections>

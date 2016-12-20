@@ -9,11 +9,11 @@
 import Cocoa
 
 class Utils: NSObject {
-    static func deg2rad(deg: Double) -> Double {
+    static func deg2rad(_ deg: Double) -> Double {
         return deg * M_PI / 180.0;
     }
     
-    static func rad2deg(rad: Double) -> Double {
+    static func rad2deg(_ rad: Double) -> Double {
         return rad * 180.0 / M_PI;
     }
     

@@ -8,36 +8,36 @@
 
 import Cocoa
 
-public enum MeridianaCalculationError: ErrorType {
-    case TooLow
+public enum MeridianaCalculationError: Error {
+    case tooLow
 }
 
 public enum LineaOrariaState: Int {
-    case LineaOrariaCompleta = 1
-    case Lemniscata = 2
-    case LineaParziale = 3
+    case lineaOrariaCompleta = 1
+    case lemniscata = 2
+    case lineaParziale = 3
 }
 
-public class MeridianaModel: NSObject {
-    var lambda : Double = Double.NaN
-    var fi     : Double = Double.NaN
-    var iota   : Double = Double.NaN
-    var delta  : Double = Double.NaN
-    var lambdar: Double = Double.NaN
-    var altezza: Double = Double.NaN
-    var lineaOrariaLemniscata : [Bool] = [Bool](count:25, repeatedValue:true)
-    private let e   : Double = 0.01670924
-    private let eta : Double = 0.409092637
-    private var sfi : Double = Double.NaN
-    private var cfi : Double = Double.NaN
-    private var d0 : Double = Double.NaN
-    private var d1 : Double = Double.NaN
-    private var af : Double = Double.NaN
-    private var sf : Double = Double.NaN
-    private var cf : Double = Double.NaN
-    private var tf : Double = Double.NaN
-    private var saf : Double = Double.NaN
-    private var caf : Double = Double.NaN
+open class MeridianaModel: NSObject {
+    var lambda : Double = Double.nan
+    var fi     : Double = Double.nan
+    var iota   : Double = Double.nan
+    var delta  : Double = Double.nan
+    var lambdar: Double = Double.nan
+    var altezza: Double = Double.nan
+    var lineaOrariaLemniscata : [Bool] = [Bool](repeating: true, count: 25)
+    fileprivate let e   : Double = 0.01670924
+    fileprivate let eta : Double = 0.409092637
+    fileprivate var sfi : Double = Double.nan
+    fileprivate var cfi : Double = Double.nan
+    fileprivate var d0 : Double = Double.nan
+    fileprivate var d1 : Double = Double.nan
+    fileprivate var af : Double = Double.nan
+    fileprivate var sf : Double = Double.nan
+    fileprivate var cf : Double = Double.nan
+    fileprivate var tf : Double = Double.nan
+    fileprivate var saf : Double = Double.nan
+    fileprivate var caf : Double = Double.nan
     let printScala = 72.0/25.4
     let videoScala: Double = 50.0
     
@@ -64,7 +64,7 @@ public class MeridianaModel: NSObject {
         ])
     }
     
-    func fromDictionary(dict: NSDictionary)  {
+    func fromDictionary(_ dict: NSDictionary)  {
         lambda = (dict["lambda"]! as! Double)
         fi = (dict["fi"]! as! Double)
         iota = (dict["iota"]! as! Double)
@@ -100,7 +100,7 @@ public class MeridianaModel: NSObject {
         d1 = lambda - lambdar;
     }
     
-    func calcola(alfa: Double, tau: Double,  medio: Bool, strict: Bool,  ridotto:Bool) throws -> CGPoint {
+    func calcola(_ alfa: Double, tau: Double,  medio: Bool, strict: Bool,  ridotto:Bool) throws -> CGPoint {
         var out = CGPoint()
     
         let L : Double = 4.881627973 + 628.3319509 * tau
@@ -123,7 +123,7 @@ public class MeridianaModel: NSObject {
         h0 -= d0
         let a2 : Double = sf*sd+cf*cd*cos(h0)
         if (a1 <= 0.0 || (a2 < 0.17 && strict)) {
-            throw MeridianaCalculationError.TooLow
+            throw MeridianaCalculationError.tooLow
         }
         let x : Double = (ridotto ? videoScala : altezza * printScala) * (cd * sin(h0))/a2
         let y : Double = (ridotto ? videoScala : altezza * printScala) * (-cf*sd + sf*cd*cos(h0))/a2
@@ -136,7 +136,7 @@ public class MeridianaModel: NSObject {
         return abs(cf/sf) * altezza;
     }
     
-    func centro(ridotto: Bool) -> CGPoint  {
+    func centro(_ ridotto: Bool) -> CGPoint  {
         var out = CGPoint()
         var y1 : Double
         let sf1 : Double = (sf == 0.0 ? 0.00001 : sf)

@@ -32,7 +32,7 @@ class Document: NSDocument, CLLocationManagerDelegate {
         // add your own initialisation for new document here
         
         let autorizationStatus = CLLocationManager.authorizationStatus()
-        if (autorizationStatus != CLAuthorizationStatus.Denied) {
+        if (autorizationStatus != CLAuthorizationStatus.denied) {
             theLocationManager = CLLocationManager()
             theLocationManager!.desiredAccuracy = kCLLocationAccuracyKilometer
             theLocationManager!.delegate = self
@@ -40,12 +40,12 @@ class Document: NSDocument, CLLocationManagerDelegate {
         }
     }
     
-    override func printOperationWithSettings(printSettings: [String : AnyObject]) throws -> NSPrintOperation {
+    override func printOperation(withSettings printSettings: [String : Any]) throws -> NSPrintOperation {
         setUpPrintObject()
         let printInfo = self.printInfo
         let imageableBounds = printInfo.imageablePageBounds
-        printInfo.horizontalPagination = NSPrintingPaginationMode.AutoPagination
-        printInfo.verticalPagination = NSPrintingPaginationMode.AutoPagination
+        printInfo.horizontalPagination = NSPrintingPaginationMode.autoPagination
+        printInfo.verticalPagination = NSPrintingPaginationMode.autoPagination
         printInfo.leftMargin = max(1,printInfo.imageablePageBounds.origin.x)
         printInfo.bottomMargin = max(1,printInfo.imageablePageBounds.origin.y)
         printInfo.rightMargin = max(1,printInfo.paperSize.width - printInfo.imageablePageBounds.width - printInfo.imageablePageBounds.origin.x)
@@ -81,14 +81,14 @@ class Document: NSDocument, CLLocationManagerDelegate {
     }
     
     func changeMeridianaModel() {
-        undoManager?.registerUndoWithTarget(self, selector: Selector("setFromDict:"), object: theModel.toDictionary())
+        undoManager?.registerUndo(withTarget: self, selector: #selector(Document.setFromDict(_:)), object: theModel.toDictionary())
         //theModel = MeridianaModel()
         setMeridianaModel()
         meridiana.needsDisplay = true
     }
     
-    func setFromDict(dictionary: NSDictionary) {
-        undoManager?.registerUndoWithTarget(self, selector: Selector("setFromDict:"), object: theModel.toDictionary())
+    func setFromDict(_ dictionary: NSDictionary) {
+        undoManager?.registerUndo(withTarget: self, selector: #selector(Document.setFromDict(_:)), object: theModel.toDictionary())
         theModel.fromDictionary(dictionary)
         meridiana.theModel = theModel
         meridiana.calcola()
@@ -139,8 +139,8 @@ class Document: NSDocument, CLLocationManagerDelegate {
         styleHeightField.doubleValue = theModel.altezza
     }
     
-    func locationManager(_manager: CLLocationManager,
-        didUpdateLocations locations: [AnyObject]) {
+    func locationManager(_ _manager: CLLocationManager,
+        didUpdateLocations locations: [CLLocation]) {
         if (!locationFix) {
             let location = locations.last
             let coord = location!.coordinate
@@ -161,7 +161,7 @@ class Document: NSDocument, CLLocationManagerDelegate {
         }
     }
     
-    override func windowControllerDidLoadNib(aController: NSWindowController) {
+    override func windowControllerDidLoadNib(_ aController: NSWindowController) {
         super.windowControllerDidLoadNib(aController)
         meridiana.theModel = theModel
         meridiana.calcola()
@@ -179,49 +179,49 @@ class Document: NSDocument, CLLocationManagerDelegate {
         return "Document"
     }
 
-    override func dataOfType(typeName: String) throws -> NSData {
+    override func data(ofType typeName: String) throws -> Data {
         let orig = theModel.toDictionary()
-        let data : NSData = NSKeyedArchiver.archivedDataWithRootObject(orig)
+        let data : Data = NSKeyedArchiver.archivedData(withRootObject: orig)
         return data
     }
 
-    override func readFromData(data: NSData, ofType typeName: String) throws {
-        let dict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSDictionary
+    override func read(from data: Data, ofType typeName: String) throws {
+        let dict = NSKeyedUnarchiver.unarchiveObject(with: data) as! NSDictionary
         theModel = MeridianaModel()
         theModel.fromDictionary(dict)
     }
     
-    @IBAction func latitudeAction(sender: AnyObject) {
+    @IBAction func latitudeAction(_ sender: AnyObject) {
         let value = latitudeField.doubleValue * (latitudeNorthButton.state == NSOnState ? 1.0 : -1.0)
         if abs(Utils.deg2rad(value) - meridiana!.theModel!.fi) > 0.000018 {
             changeMeridianaModel()
         }
     }
-    @IBAction func longitudeAction(sender: AnyObject) {
+    @IBAction func longitudeAction(_ sender: AnyObject) {
         let value = longitudeField.doubleValue * (longitudeEastButton.state == NSOnState ? 1.0 : -1.0)
         if abs(Utils.deg2rad(value) - meridiana!.theModel!.lambda) > 0.000018 {
             changeMeridianaModel()
         }
     }
-    @IBAction func referenceLongitudeAction(sender: AnyObject) {
+    @IBAction func referenceLongitudeAction(_ sender: AnyObject) {
         let value = referenceLongitudeField.doubleValue * (referenceLongitudeEastButton.state == NSOnState ? 1.0 : -1.0)
         if abs(Utils.deg2rad(value) - meridiana!.theModel!.lambdar) > 0.000018 {
             changeMeridianaModel()
         }
     }
-    @IBAction func declinationAction(sender: AnyObject) {
+    @IBAction func declinationAction(_ sender: AnyObject) {
         let value = declinationField.doubleValue * (declinationEastButton.state == NSOnState ? 1.0 : -1.0)
         if abs(Utils.deg2rad(value) - meridiana!.theModel!.delta) > 0.000018 {
             changeMeridianaModel()
         }
     }
-    @IBAction func inclinationAction(sender: AnyObject) {
+    @IBAction func inclinationAction(_ sender: AnyObject) {
         let value = inclinationField.doubleValue
         if abs(Utils.deg2rad(value) - meridiana!.theModel!.iota) > 0.000018 {
             changeMeridianaModel()
         }
     }
-    @IBAction func styleHeightAction(sender: NSTextField) {
+    @IBAction func styleHeightAction(_ sender: NSTextField) {
         setMeridianaModel()
     }
     @IBOutlet  var styleHeightField: NSTextField!

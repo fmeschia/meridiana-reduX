@@ -10,17 +10,17 @@
 		30376F001BBCF8A800A64154 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376EFF1BBCF8A800A64154 /* AppDelegate.swift */; };
 		30376F021BBCF8A800A64154 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30376F011BBCF8A800A64154 /* Assets.xcassets */; };
 		30376F051BBCF8A800A64154 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30376F031BBCF8A800A64154 /* MainMenu.xib */; };
-		30376F131BBCF8E400A64154 /* LineaOraria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F0C1BBCF8E400A64154 /* LineaOraria.swift */; settings = {ASSET_TAGS = (); }; };
-		30376F141BBCF8E400A64154 /* LineaStagionale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F0D1BBCF8E400A64154 /* LineaStagionale.swift */; settings = {ASSET_TAGS = (); }; };
-		30376F151BBCF8E400A64154 /* Meridiana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F0E1BBCF8E400A64154 /* Meridiana.swift */; settings = {ASSET_TAGS = (); }; };
-		30376F161BBCF8E400A64154 /* MeridianaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F0F1BBCF8E400A64154 /* MeridianaModel.swift */; settings = {ASSET_TAGS = (); }; };
-		30376F171BBCF8E400A64154 /* Segno.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F101BBCF8E400A64154 /* Segno.swift */; settings = {ASSET_TAGS = (); }; };
-		30376F181BBCF8E400A64154 /* TracciaStilo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F111BBCF8E400A64154 /* TracciaStilo.swift */; settings = {ASSET_TAGS = (); }; };
-		30376F191BBCF8E400A64154 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F121BBCF8E400A64154 /* Utils.swift */; settings = {ASSET_TAGS = (); }; };
-		30376F1C1BBCF91000A64154 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F1A1BBCF91000A64154 /* MasterViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		30376F1D1BBCF91000A64154 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30376F1B1BBCF91000A64154 /* MasterViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		30CD821C1BC08A070024C43E /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CD821A1BC08A070024C43E /* Document.swift */; settings = {ASSET_TAGS = (); }; };
-		30CD821D1BC08A070024C43E /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30CD821B1BC08A070024C43E /* Document.xib */; settings = {ASSET_TAGS = (); }; };
+		30376F131BBCF8E400A64154 /* LineaOraria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F0C1BBCF8E400A64154 /* LineaOraria.swift */; };
+		30376F141BBCF8E400A64154 /* LineaStagionale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F0D1BBCF8E400A64154 /* LineaStagionale.swift */; };
+		30376F151BBCF8E400A64154 /* Meridiana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F0E1BBCF8E400A64154 /* Meridiana.swift */; };
+		30376F161BBCF8E400A64154 /* MeridianaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F0F1BBCF8E400A64154 /* MeridianaModel.swift */; };
+		30376F171BBCF8E400A64154 /* Segno.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F101BBCF8E400A64154 /* Segno.swift */; };
+		30376F181BBCF8E400A64154 /* TracciaStilo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F111BBCF8E400A64154 /* TracciaStilo.swift */; };
+		30376F191BBCF8E400A64154 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F121BBCF8E400A64154 /* Utils.swift */; };
+		30376F1C1BBCF91000A64154 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30376F1A1BBCF91000A64154 /* MasterViewController.swift */; };
+		30376F1D1BBCF91000A64154 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30376F1B1BBCF91000A64154 /* MasterViewController.xib */; };
+		30CD821C1BC08A070024C43E /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CD821A1BC08A070024C43E /* Document.swift */; };
+		30CD821D1BC08A070024C43E /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30CD821B1BC08A070024C43E /* Document.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,6 +122,7 @@
 				TargetAttributes = {
 					30376EFB1BBCF8A800A64154 = {
 						CreatedOnToolsVersion = 7.0.1;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -283,6 +284,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = org.fmeschia.Meridiana;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -296,6 +298,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = org.fmeschia.Meridiana;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
